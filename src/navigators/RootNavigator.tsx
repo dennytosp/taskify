@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { AppStyles } from '@/styles';
 import { navigationRef } from '@/utils/holder';
 import { RootStack } from './stack';
+import InitializeApp from './InitializeApp';
 
 const RootNavigator = () => {
   return (
@@ -13,6 +14,7 @@ const RootNavigator = () => {
       <BottomSheetModalProvider>
         <NavigationContainer ref={navigationRef}>
           <RootStack />
+          <InitializeApp />
         </NavigationContainer>
       </BottomSheetModalProvider>
     </GestureHandlerRootView>

@@ -1,7 +1,6 @@
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-import { StatusBar } from 'react-native';
 import { AuthStack } from '.';
 import { RoutesRootStack } from '../routes';
 import { AuthStackParamsList } from './auth';
@@ -22,7 +21,6 @@ const routeName = RoutesRootStack.AUTH_STACK;
 const RootStack = () => {
   return (
     <>
-      <StatusBar translucent={true} backgroundColor="transparent" />
       <Root.Navigator
         initialRouteName={routeName}
         screenOptions={{ headerShown: false, animation: 'fade' }}>

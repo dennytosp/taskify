@@ -32,9 +32,18 @@
 		<true/>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
-	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string></string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Poppins-Black.otf</string>
+		<string>Poppins-Bold.otf</string>
+		<string>Poppins-Italic.otf</string>
+		<string>Poppins-Light.otf</string>
+		<string>Poppins-Medium.otf</string>
+		<string>Poppins-Regular.otf</string>
+		<string>Poppins-SemiBold.otf</string>
+		<string>Poppins-Thin.otf</string>
+	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>arm64</string>
@@ -47,16 +56,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Poppins-Black.otf</string>
-		<string>Poppins-Bold.otf</string>
-		<string>Poppins-Italic.otf</string>
-		<string>Poppins-Light.otf</string>
-		<string>Poppins-Medium.otf</string>
-		<string>Poppins-Regular.otf</string>
-		<string>Poppins-SemiBold.otf</string>
-		<string>Poppins-Thin.otf</string>
-	</array>
+	<key>UILaunchStoryboardName</key>
+	<string>BootSplash</string>
 </dict>
 </plist>

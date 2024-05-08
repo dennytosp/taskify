@@ -1,4 +1,7 @@
 export default {
+  app: {
+    name: 'Taskify',
+  },
   error: {
     '400': 'Bad Request. Please Check Your Request',
     '401': 'Unauthorized. Please Login Again',
