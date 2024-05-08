@@ -5,8 +5,11 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
+    "pod": "cd ios && pod install && cd ..",
     "lint": "eslint .",
-    "start": "react-native start",
+    "start": "react-native start --reset-cache",
+    "pretty": "prettier --write ./src/*",
+    "xc": "cd ios && open *.xcworkspace && cd ..",
     "test": "jest"
   },
   "dependencies": {
