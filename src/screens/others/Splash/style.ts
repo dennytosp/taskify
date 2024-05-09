@@ -13,6 +13,6 @@ export const styles = StyleSheet.create({
     fontSize: moderateScale(20),
     textAlign: 'center',
     fontFamily: FONTS.bold,
-    color: COLORS.black,
+    color: COLORS.text,
   },
 });
