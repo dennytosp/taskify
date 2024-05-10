@@ -82,4 +82,11 @@ export default {
     light: 'Light',
     dark: 'Dark',
   },
+  taskify: {
+    getStarted: {
+      title: 'Welcome to',
+      content: 'The best to-do list app for you.',
+      button: 'Get Started',
+    },
+  },
 };

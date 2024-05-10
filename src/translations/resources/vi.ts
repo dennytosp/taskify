@@ -82,4 +82,11 @@ export default {
     light: 'Sáng',
     dark: 'Tối',
   },
+  taskify: {
+    getStarted: {
+      title: 'Chào mừng bạn đến với',
+      content: 'Ứng dụng liệt kê việc cần làm tốt nhất dành cho bạn.',
+      button: 'Bắt đầu nào',
+    },
+  },
 };
