@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+
 import { Button, Image, Input } from '@/components';
 import { InputRef } from '@/components/Input/type';
 import { BoldText, RegularText, SemiBoldText } from '@/components/Text';
@@ -48,7 +49,11 @@ const SignIn = () => {
   };
 
   const renderHeader = () => (
-    <View style={[styles.wrapHeader]}>
+    <View
+      style={[
+        styles.wrapHeader,
+        { paddingTop: isIos ? insets.top : moderateScale(32) },
+      ]}>
       <Image source={Icons.logo} customStyle={[{ width: moderateScale(80) }]} />
       <View style={[AppStyles.rowVCenter]}>
         <RegularText style={[styles.textTitle]}>
@@ -74,6 +79,7 @@ const SignIn = () => {
         placeHolder={translate('taskify.auth.enterEmail')}
         inputProps={{ keyboardType: 'email-address', maxLength: 75 }}
         title={translate('taskify.auth.emailAddress')}
+        containerStyle={[{ marginTop: moderateScale(24) }]}
       />
       <Input
         ref={passwordRef}
@@ -137,25 +143,24 @@ const SignIn = () => {
         {translate('taskify.auth.dontHaveAnAccount')}
       </RegularText>
       <TouchableOpacity onPress={onNavigateSignUp}>
-        <RegularText style={[styles.textSignUp]}>
+        <SemiBoldText style={[styles.textSignUp]}>
           {` ${translate('taskify.auth.signUp')}`}
-        </RegularText>
+        </SemiBoldText>
       </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={[styles.container]}>
+      {renderHeader()}
       <ScrollView
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={'handled'}
         contentContainerStyle={[
           {
-            paddingTop: isIos ? insets.top : moderateScale(32),
             paddingBottom: insets.bottom,
           },
         ]}>
-        {renderHeader()}
         {renderForm()}
         {renderForgotPassword()}
         {renderButton()}

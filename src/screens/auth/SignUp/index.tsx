@@ -1,7 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useRef } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useNavigation } from '@react-navigation/native';
+
 import { Button, Image, Input } from '@/components';
 import { InputRef } from '@/components/Input/type';
 import { BoldText, RegularText, SemiBoldText } from '@/components/Text';
@@ -50,7 +51,11 @@ const SignUp = () => {
   };
 
   const renderHeader = () => (
-    <View style={[styles.wrapHeader]}>
+    <View
+      style={[
+        styles.wrapHeader,
+        { paddingTop: isIos ? insets.top : moderateScale(32) },
+      ]}>
       <Image source={Icons.logo} customStyle={[{ width: moderateScale(80) }]} />
       <View style={[AppStyles.rowVCenter]}>
         <RegularText style={[styles.textTitle]}>
@@ -74,6 +79,7 @@ const SignUp = () => {
         ref={fullNameRef}
         isRequired={true}
         placeHolder={translate('taskify.auth.enterFullName')}
+        containerStyle={[{ marginTop: moderateScale(24) }]}
         inputProps={{ maxLength: 75 }}
         title={translate('taskify.auth.fullName')}
       />
@@ -154,25 +160,25 @@ const SignUp = () => {
         {translate('taskify.auth.alreadyHaveAnAccount')}
       </RegularText>
       <TouchableOpacity onPress={onNavigateSignIn}>
-        <RegularText style={[styles.textSignUp]}>
+        <SemiBoldText style={[styles.textSignUp]}>
           {` ${translate('taskify.auth.signIn')}`}
-        </RegularText>
+        </SemiBoldText>
       </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={[styles.container]}>
+      {renderHeader()}
+
       <ScrollView
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={'handled'}
         contentContainerStyle={[
           {
-            paddingTop: isIos ? insets.top : moderateScale(32),
             paddingBottom: insets.bottom,
           },
         ]}>
-        {renderHeader()}
         {renderForm()}
         {renderForgotPassword()}
         {renderButton()}

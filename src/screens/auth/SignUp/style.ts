@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(16),
   },
   wrapHeader: {
-    marginBottom: moderateScale(48),
+    marginBottom: moderateScale(24),
   },
   textLets: {
     fontSize: moderateScale(26),

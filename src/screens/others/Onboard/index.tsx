@@ -5,7 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { styles } from './style';
 
 type NavigationProps =
-  ReactNavigation.RootStackScreenProps<RoutesRootStack.AUTH_STACK>;
+  ReactNavigation.RootStackScreenProps<RoutesRootStack.MAIN_STACK>;
 
 const Onboard = () => {
   const navigation = useNavigation<NavigationProps['navigation']>();

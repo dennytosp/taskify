@@ -1,9 +1,10 @@
 import React, { useRef } from 'react';
 import { ScrollView, TouchableOpacity, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+
 import { Button, Header, Input } from '@/components';
 import { InputRef } from '@/components/Input/type';
-import { RegularText } from '@/components/Text';
+import { RegularText, SemiBoldText } from '@/components/Text';
 import { RoutesAuthStack, RoutesRootStack } from '@/navigators/routes';
 import { AppStyles } from '@/styles';
 import { translate } from '@/translations/translate';
@@ -62,9 +63,9 @@ const ForgotPassword = () => {
         {translate('taskify.auth.didYouRememberThePassword')}
       </RegularText>
       <TouchableOpacity onPress={onNavigateSignIn}>
-        <RegularText style={[styles.textSignIn]}>
+        <SemiBoldText style={[styles.textSignIn]}>
           {` ${translate('taskify.auth.signIn')}`}
-        </RegularText>
+        </SemiBoldText>
       </TouchableOpacity>
     </View>
   );

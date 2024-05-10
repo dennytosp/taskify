@@ -5,11 +5,11 @@ import { RoutesRootStack } from '@/navigators/routes';
 import { styles } from './style';
 
 type NavigationProps =
-  ReactNavigation.RootStackScreenProps<RoutesRootStack.AUTH_STACK>;
+  ReactNavigation.RootStackScreenProps<RoutesRootStack.MAIN_STACK>;
 
 const Home = () => {
   const navigation = useNavigation<NavigationProps['navigation']>();
-  
+
   return (
     <View style={[styles.container]}>
       <Text>Home</Text>
