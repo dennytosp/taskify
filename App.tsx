@@ -11,6 +11,12 @@ import RootNavigator from '@/navigators/RootNavigator';
 import { persistor, store } from '@/stores';
 import i18n from '@/translations/i18n';
 
+if (!__DEV__) {
+  console.log = () => {};
+  console.warn = () => {};
+  console.error = () => {};
+}
+
 const App = () => {
   return (
     <SafeAreaProvider>
