@@ -1,6 +1,9 @@
 import React from 'react';
 import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+
+import { getAppState } from '@/stores/slices';
+import { useAppSelector } from '@/stores/types';
 import { AuthStack, OtherStack } from '.';
 import { RoutesRootStack } from '../routes';
 import { AuthStackParamsList } from './auth';
@@ -19,9 +22,13 @@ export type RootStackParamList = {
 };
 
 const Root = createNativeStackNavigator<ReactNavigation.RootParamList>();
-const routeName = RoutesRootStack.OTHER_STACK;
 
 const RootStack = () => {
+  const { isFirstTimeLaunch } = useAppSelector(getAppState);
+  const routeName = isFirstTimeLaunch
+    ? RoutesRootStack.OTHER_STACK
+    : RoutesRootStack.AUTH_STACK;
+
   return (
     <>
       <Root.Navigator

@@ -2,9 +2,12 @@ import React from 'react';
 import { View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+
 import { Button, Image } from '@/components';
 import { BoldText, RegularText } from '@/components/Text';
 import { RoutesAuthStack, RoutesRootStack } from '@/navigators/routes';
+import { appActions } from '@/stores/slices';
+import { useAppDispatch } from '@/stores/types';
 import { AppStyles } from '@/styles';
 import { Icons } from '@/theme';
 import { translate } from '@/translations/translate';
@@ -17,6 +20,14 @@ type NavigationProps =
 const Welcome = () => {
   const navigation = useNavigation<NavigationProps['navigation']>();
   const insets = useSafeAreaInsets();
+  const dispatch = useAppDispatch();
+
+  const onGetStarted = () => {
+    dispatch(appActions.onSetIsFirstTimeLaunch(false));
+    navigation.navigate(RoutesRootStack.AUTH_STACK, {
+      screen: RoutesAuthStack.SIGN_IN,
+    });
+  };
 
   return (
     <View style={[styles.container]}>
@@ -44,11 +55,7 @@ const Welcome = () => {
           styles.button,
           { bottom: moderateVerticalScale(40 + insets.bottom) },
         ]}
-        onPress={() =>
-          navigation.navigate(RoutesRootStack.AUTH_STACK, {
-            screen: RoutesAuthStack.SIGN_IN,
-          })
-        }
+        onPress={onGetStarted}
       />
     </View>
   );

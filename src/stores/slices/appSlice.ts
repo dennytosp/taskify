@@ -1,6 +1,7 @@
-import { AppLanguage, LanguageType } from '@/types';
 import { createSlice } from '@reduxjs/toolkit';
 import { PayloadAction } from '@reduxjs/toolkit/react';
+
+import { AppLanguage, LanguageType } from '@/types';
 import { AppState } from '../types/app';
 import { RootState } from '../types/root';
 
@@ -8,6 +9,7 @@ const initialAppState: AppState = {
   isInternet: true,
   appLanguage: LanguageType.en,
   isDebugging: false,
+  isFirstTimeLaunch: true,
 };
 
 const appSlice = createSlice({
@@ -16,6 +18,9 @@ const appSlice = createSlice({
   reducers: {
     onSetAppLanguage: (state, action: PayloadAction<AppLanguage>) => {
       state.appLanguage = action.payload;
+    },
+    onSetIsFirstTimeLaunch: (state, action: PayloadAction<boolean>) => {
+      state.isFirstTimeLaunch = action.payload;
     },
   },
 
