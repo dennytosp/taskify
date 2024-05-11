@@ -12,7 +12,7 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		3303672AC1D044D4A8AEF7BB /* Poppins-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3A449104B42C497A856B8CF6 /* Poppins-Black.otf */; };
-		37F0F115BA563E71B8593184 /* libPods-Taskify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 858FAD592168764CF57DF1B7 /* libPods-Taskify.a */; };
+		3699C03172D2639BDEE321B9 /* libPods-Taskify-TaskifyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1992F167D5D686FADBC5904A /* libPods-Taskify-TaskifyTests.a */; };
 		404935F02CAB55E2ABF63DB4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7F539F04997EA85CE2FDB4E1 /* PrivacyInfo.xcprivacy */; };
 		4C2018BC92E8488AAA3E53BB /* Poppins-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = B0E99097A55B41E1868344D8 /* Poppins-Thin.otf */; };
 		51EBA8234D3847C4B2C7864D /* Poppins-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 48E425F2BAA34C0DAACC0809 /* Poppins-Regular.otf */; };
@@ -22,7 +22,26 @@
 		993B43689C0F4CB8AA49FE6D /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 158FC15D4A73451A8C817C1D /* BootSplash.storyboard */; };
 		A0EAFB57913144979F297514 /* Poppins-Italic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 29C39B04D8DC41D889319C76 /* Poppins-Italic.otf */; };
 		BAC9287EA4BE43D2A4846BE1 /* Poppins-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EA9ECD77BEEA4A60AF414BB3 /* Poppins-SemiBold.otf */; };
-		EC1825F4A580FB6E68A4B235 /* libPods-Taskify-TaskifyTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2B265715F6973312E0B45F5 /* libPods-Taskify-TaskifyTests.a */; };
+		C9A0352172CC239EB2900BD1 /* libPods-Taskify.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 478CE3BCD3CE93F7A5C635D3 /* libPods-Taskify.a */; };
+		CB8DA32D2BEF74AD00A08469 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA31A2BEF74AD00A08469 /* Fontisto.ttf */; };
+		CB8DA32E2BEF74AD00A08469 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA31B2BEF74AD00A08469 /* Octicons.ttf */; };
+		CB8DA32F2BEF74AD00A08469 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA31C2BEF74AD00A08469 /* Feather.ttf */; };
+		CB8DA3302BEF74AD00A08469 /* FontAwesome6_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA31D2BEF74AD00A08469 /* FontAwesome6_Regular.ttf */; };
+		CB8DA3312BEF74AD00A08469 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA31E2BEF74AD00A08469 /* Entypo.ttf */; };
+		CB8DA3322BEF74AD00A08469 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA31F2BEF74AD00A08469 /* FontAwesome5_Brands.ttf */; };
+		CB8DA3332BEF74AD00A08469 /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3202BEF74AD00A08469 /* MaterialCommunityIcons.ttf */; };
+		CB8DA3342BEF74AD00A08469 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3212BEF74AD00A08469 /* AntDesign.ttf */; };
+		CB8DA3352BEF74AD00A08469 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3222BEF74AD00A08469 /* Foundation.ttf */; };
+		CB8DA3362BEF74AD00A08469 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3232BEF74AD00A08469 /* Ionicons.ttf */; };
+		CB8DA3372BEF74AD00A08469 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3242BEF74AD00A08469 /* FontAwesome5_Solid.ttf */; };
+		CB8DA3382BEF74AD00A08469 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3252BEF74AD00A08469 /* FontAwesome5_Regular.ttf */; };
+		CB8DA3392BEF74AD00A08469 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3262BEF74AD00A08469 /* FontAwesome.ttf */; };
+		CB8DA33A2BEF74AD00A08469 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3272BEF74AD00A08469 /* Zocial.ttf */; };
+		CB8DA33B2BEF74AD00A08469 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3282BEF74AD00A08469 /* EvilIcons.ttf */; };
+		CB8DA33C2BEF74AD00A08469 /* FontAwesome6_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA3292BEF74AD00A08469 /* FontAwesome6_Solid.ttf */; };
+		CB8DA33D2BEF74AD00A08469 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA32A2BEF74AD00A08469 /* SimpleLineIcons.ttf */; };
+		CB8DA33E2BEF74AD00A08469 /* FontAwesome6_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA32B2BEF74AD00A08469 /* FontAwesome6_Brands.ttf */; };
+		CB8DA33F2BEF74AD00A08469 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB8DA32C2BEF74AD00A08469 /* MaterialIcons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +58,7 @@
 		00E356EE1AD99517003FC87E /* TaskifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TaskifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* TaskifyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TaskifyTests.m; sourceTree = "<group>"; };
+		0838E323CD9BA919F69E9353 /* Pods-Taskify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify.release.xcconfig"; path = "Target Support Files/Pods-Taskify/Pods-Taskify.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Taskify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Taskify.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Taskify/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = Taskify/AppDelegate.mm; sourceTree = "<group>"; };
@@ -47,19 +67,37 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Taskify/main.m; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = Taskify/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		158FC15D4A73451A8C817C1D /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = Taskify/BootSplash.storyboard; sourceTree = "<group>"; };
-		188A1D07E299F38B97D8442D /* Pods-Taskify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify.debug.xcconfig"; path = "Target Support Files/Pods-Taskify/Pods-Taskify.debug.xcconfig"; sourceTree = "<group>"; };
+		1736EDE1C0F540738700AD38 /* Pods-Taskify-TaskifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify-TaskifyTests.release.xcconfig"; path = "Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests.release.xcconfig"; sourceTree = "<group>"; };
+		1992F167D5D686FADBC5904A /* libPods-Taskify-TaskifyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taskify-TaskifyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D05B9BCF5040B2678D8F0A3 /* Pods-Taskify-TaskifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify-TaskifyTests.debug.xcconfig"; path = "Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		29C39B04D8DC41D889319C76 /* Poppins-Italic.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Italic.otf"; path = "../src/assets/fonts/Poppins-Italic.otf"; sourceTree = "<group>"; };
 		3A449104B42C497A856B8CF6 /* Poppins-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Black.otf"; path = "../src/assets/fonts/Poppins-Black.otf"; sourceTree = "<group>"; };
 		3E86BE7CD22049879C691393 /* Poppins-Light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.otf"; path = "../src/assets/fonts/Poppins-Light.otf"; sourceTree = "<group>"; };
+		478CE3BCD3CE93F7A5C635D3 /* libPods-Taskify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taskify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		48E425F2BAA34C0DAACC0809 /* Poppins-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.otf"; path = "../src/assets/fonts/Poppins-Regular.otf"; sourceTree = "<group>"; };
-		4E27321B22F16B7CFB2C5253 /* Pods-Taskify-TaskifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify-TaskifyTests.release.xcconfig"; path = "Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests.release.xcconfig"; sourceTree = "<group>"; };
-		50871FAE849EBF60DBE0622E /* Pods-Taskify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify.release.xcconfig"; path = "Target Support Files/Pods-Taskify/Pods-Taskify.release.xcconfig"; sourceTree = "<group>"; };
-		5B71BAF083194343B80B6EFF /* Pods-Taskify-TaskifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify-TaskifyTests.debug.xcconfig"; path = "Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7F539F04997EA85CE2FDB4E1 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Taskify/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		858FAD592168764CF57DF1B7 /* libPods-Taskify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taskify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		AD1E9DEC1959451F898777E6 /* Poppins-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.otf"; path = "../src/assets/fonts/Poppins-Bold.otf"; sourceTree = "<group>"; };
 		B0E99097A55B41E1868344D8 /* Poppins-Thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Thin.otf"; path = "../src/assets/fonts/Poppins-Thin.otf"; sourceTree = "<group>"; };
-		D2B265715F6973312E0B45F5 /* libPods-Taskify-TaskifyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Taskify-TaskifyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		CB8DA31A2BEF74AD00A08469 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
+		CB8DA31B2BEF74AD00A08469 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
+		CB8DA31C2BEF74AD00A08469 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
+		CB8DA31D2BEF74AD00A08469 /* FontAwesome6_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Regular.ttf; sourceTree = "<group>"; };
+		CB8DA31E2BEF74AD00A08469 /* Entypo.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Entypo.ttf; sourceTree = "<group>"; };
+		CB8DA31F2BEF74AD00A08469 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Brands.ttf; sourceTree = "<group>"; };
+		CB8DA3202BEF74AD00A08469 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		CB8DA3212BEF74AD00A08469 /* AntDesign.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = AntDesign.ttf; sourceTree = "<group>"; };
+		CB8DA3222BEF74AD00A08469 /* Foundation.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Foundation.ttf; sourceTree = "<group>"; };
+		CB8DA3232BEF74AD00A08469 /* Ionicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Ionicons.ttf; sourceTree = "<group>"; };
+		CB8DA3242BEF74AD00A08469 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Solid.ttf; sourceTree = "<group>"; };
+		CB8DA3252BEF74AD00A08469 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome5_Regular.ttf; sourceTree = "<group>"; };
+		CB8DA3262BEF74AD00A08469 /* FontAwesome.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome.ttf; sourceTree = "<group>"; };
+		CB8DA3272BEF74AD00A08469 /* Zocial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Zocial.ttf; sourceTree = "<group>"; };
+		CB8DA3282BEF74AD00A08469 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
+		CB8DA3292BEF74AD00A08469 /* FontAwesome6_Solid.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Solid.ttf; sourceTree = "<group>"; };
+		CB8DA32A2BEF74AD00A08469 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
+		CB8DA32B2BEF74AD00A08469 /* FontAwesome6_Brands.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FontAwesome6_Brands.ttf; sourceTree = "<group>"; };
+		CB8DA32C2BEF74AD00A08469 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		D10CCE371AD83AEDCF925B44 /* Pods-Taskify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Taskify.debug.xcconfig"; path = "Target Support Files/Pods-Taskify/Pods-Taskify.debug.xcconfig"; sourceTree = "<group>"; };
 		EA9ECD77BEEA4A60AF414BB3 /* Poppins-SemiBold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.otf"; path = "../src/assets/fonts/Poppins-SemiBold.otf"; sourceTree = "<group>"; };
 		EB992C40C56A47DA857C9FCD /* Poppins-Medium.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.otf"; path = "../src/assets/fonts/Poppins-Medium.otf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -70,7 +108,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EC1825F4A580FB6E68A4B235 /* libPods-Taskify-TaskifyTests.a in Frameworks */,
+				3699C03172D2639BDEE321B9 /* libPods-Taskify-TaskifyTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,7 +116,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37F0F115BA563E71B8593184 /* libPods-Taskify.a in Frameworks */,
+				C9A0352172CC239EB2900BD1 /* libPods-Taskify.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +143,7 @@
 		13B07FAE1A68108700A75B9A /* Taskify */ = {
 			isa = PBXGroup;
 			children = (
+				CB8DA3192BEF74AD00A08469 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -121,8 +160,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				858FAD592168764CF57DF1B7 /* libPods-Taskify.a */,
-				D2B265715F6973312E0B45F5 /* libPods-Taskify-TaskifyTests.a */,
+				478CE3BCD3CE93F7A5C635D3 /* libPods-Taskify.a */,
+				1992F167D5D686FADBC5904A /* libPods-Taskify-TaskifyTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -177,12 +216,39 @@
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				188A1D07E299F38B97D8442D /* Pods-Taskify.debug.xcconfig */,
-				50871FAE849EBF60DBE0622E /* Pods-Taskify.release.xcconfig */,
-				5B71BAF083194343B80B6EFF /* Pods-Taskify-TaskifyTests.debug.xcconfig */,
-				4E27321B22F16B7CFB2C5253 /* Pods-Taskify-TaskifyTests.release.xcconfig */,
+				D10CCE371AD83AEDCF925B44 /* Pods-Taskify.debug.xcconfig */,
+				0838E323CD9BA919F69E9353 /* Pods-Taskify.release.xcconfig */,
+				1D05B9BCF5040B2678D8F0A3 /* Pods-Taskify-TaskifyTests.debug.xcconfig */,
+				1736EDE1C0F540738700AD38 /* Pods-Taskify-TaskifyTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		CB8DA3192BEF74AD00A08469 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				CB8DA31A2BEF74AD00A08469 /* Fontisto.ttf */,
+				CB8DA31B2BEF74AD00A08469 /* Octicons.ttf */,
+				CB8DA31C2BEF74AD00A08469 /* Feather.ttf */,
+				CB8DA31D2BEF74AD00A08469 /* FontAwesome6_Regular.ttf */,
+				CB8DA31E2BEF74AD00A08469 /* Entypo.ttf */,
+				CB8DA31F2BEF74AD00A08469 /* FontAwesome5_Brands.ttf */,
+				CB8DA3202BEF74AD00A08469 /* MaterialCommunityIcons.ttf */,
+				CB8DA3212BEF74AD00A08469 /* AntDesign.ttf */,
+				CB8DA3222BEF74AD00A08469 /* Foundation.ttf */,
+				CB8DA3232BEF74AD00A08469 /* Ionicons.ttf */,
+				CB8DA3242BEF74AD00A08469 /* FontAwesome5_Solid.ttf */,
+				CB8DA3252BEF74AD00A08469 /* FontAwesome5_Regular.ttf */,
+				CB8DA3262BEF74AD00A08469 /* FontAwesome.ttf */,
+				CB8DA3272BEF74AD00A08469 /* Zocial.ttf */,
+				CB8DA3282BEF74AD00A08469 /* EvilIcons.ttf */,
+				CB8DA3292BEF74AD00A08469 /* FontAwesome6_Solid.ttf */,
+				CB8DA32A2BEF74AD00A08469 /* SimpleLineIcons.ttf */,
+				CB8DA32B2BEF74AD00A08469 /* FontAwesome6_Brands.ttf */,
+				CB8DA32C2BEF74AD00A08469 /* MaterialIcons.ttf */,
+			);
+			name = Fonts;
+			path = "../node_modules/react-native-vector-icons/Fonts";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -192,12 +258,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "TaskifyTests" */;
 			buildPhases = (
-				A592A1386C6A49C0C8AC40F6 /* [CP] Check Pods Manifest.lock */,
+				91D1AE82EB7ABD8F925F5134 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				8F8259CD8D6BF407D64CACA5 /* [CP] Embed Pods Frameworks */,
-				E331507B4E0E277B436995C6 /* [CP] Copy Pods Resources */,
+				AD23519EB6EF73F08E816EC2 /* [CP] Embed Pods Frameworks */,
+				413015A1907E61293B92F2E5 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -213,13 +279,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Taskify" */;
 			buildPhases = (
-				6C63A6376E660050394424DE /* [CP] Check Pods Manifest.lock */,
+				8B284C005BA57E1064071C6C /* [CP] Check Pods Manifest.lock */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				904A3E9CF8AD798EE99FA7A3 /* [CP] Embed Pods Frameworks */,
-				8C86C7539D19328A2D7DA102 /* [CP] Copy Pods Resources */,
+				663B7026A93DC3ACF819973A /* [CP] Embed Pods Frameworks */,
+				1E31B46DF3743A28F168F650 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -279,15 +345,34 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				CB8DA3352BEF74AD00A08469 /* Foundation.ttf in Resources */,
+				CB8DA33F2BEF74AD00A08469 /* MaterialIcons.ttf in Resources */,
+				CB8DA33A2BEF74AD00A08469 /* Zocial.ttf in Resources */,
 				404935F02CAB55E2ABF63DB4 /* PrivacyInfo.xcprivacy in Resources */,
 				3303672AC1D044D4A8AEF7BB /* Poppins-Black.otf in Resources */,
+				CB8DA33D2BEF74AD00A08469 /* SimpleLineIcons.ttf in Resources */,
+				CB8DA3342BEF74AD00A08469 /* AntDesign.ttf in Resources */,
 				8D3F7EE142A94858984F51AF /* Poppins-Bold.otf in Resources */,
+				CB8DA33B2BEF74AD00A08469 /* EvilIcons.ttf in Resources */,
 				A0EAFB57913144979F297514 /* Poppins-Italic.otf in Resources */,
+				CB8DA3322BEF74AD00A08469 /* FontAwesome5_Brands.ttf in Resources */,
+				CB8DA3312BEF74AD00A08469 /* Entypo.ttf in Resources */,
+				CB8DA3372BEF74AD00A08469 /* FontAwesome5_Solid.ttf in Resources */,
+				CB8DA3382BEF74AD00A08469 /* FontAwesome5_Regular.ttf in Resources */,
+				CB8DA3392BEF74AD00A08469 /* FontAwesome.ttf in Resources */,
 				646D045F705F4A6AB9AF5514 /* Poppins-Light.otf in Resources */,
+				CB8DA32D2BEF74AD00A08469 /* Fontisto.ttf in Resources */,
 				78498A2260F6473EBC11B1F4 /* Poppins-Medium.otf in Resources */,
+				CB8DA32F2BEF74AD00A08469 /* Feather.ttf in Resources */,
 				51EBA8234D3847C4B2C7864D /* Poppins-Regular.otf in Resources */,
 				BAC9287EA4BE43D2A4846BE1 /* Poppins-SemiBold.otf in Resources */,
+				CB8DA3302BEF74AD00A08469 /* FontAwesome6_Regular.ttf in Resources */,
+				CB8DA32E2BEF74AD00A08469 /* Octicons.ttf in Resources */,
+				CB8DA3362BEF74AD00A08469 /* Ionicons.ttf in Resources */,
+				CB8DA33E2BEF74AD00A08469 /* FontAwesome6_Brands.ttf in Resources */,
 				4C2018BC92E8488AAA3E53BB /* Poppins-Thin.otf in Resources */,
+				CB8DA3332BEF74AD00A08469 /* MaterialCommunityIcons.ttf in Resources */,
+				CB8DA33C2BEF74AD00A08469 /* FontAwesome6_Solid.ttf in Resources */,
 				993B43689C0F4CB8AA49FE6D /* BootSplash.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -311,7 +396,58 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"$REACT_NATIVE_PATH/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"$REACT_NATIVE_PATH/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
 		};
-		6C63A6376E660050394424DE /* [CP] Check Pods Manifest.lock */ = {
+		1E31B46DF3743A28F168F650 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		413015A1907E61293B92F2E5 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		663B7026A93DC3ACF819973A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8B284C005BA57E1064071C6C /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -333,58 +469,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C86C7539D19328A2D7DA102 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8F8259CD8D6BF407D64CACA5 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		904A3E9CF8AD798EE99FA7A3 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify/Pods-Taskify-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		A592A1386C6A49C0C8AC40F6 /* [CP] Check Pods Manifest.lock */ = {
+		91D1AE82EB7ABD8F925F5134 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -406,21 +491,21 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E331507B4E0E277B436995C6 /* [CP] Copy Pods Resources */ = {
+		AD23519EB6EF73F08E816EC2 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
-			name = "[CP] Copy Pods Resources";
+			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Taskify-TaskifyTests/Pods-Taskify-TaskifyTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -456,7 +541,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5B71BAF083194343B80B6EFF /* Pods-Taskify-TaskifyTests.debug.xcconfig */;
+			baseConfigurationReference = 1D05B9BCF5040B2678D8F0A3 /* Pods-Taskify-TaskifyTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -483,7 +568,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4E27321B22F16B7CFB2C5253 /* Pods-Taskify-TaskifyTests.release.xcconfig */;
+			baseConfigurationReference = 1736EDE1C0F540738700AD38 /* Pods-Taskify-TaskifyTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -507,7 +592,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 188A1D07E299F38B97D8442D /* Pods-Taskify.debug.xcconfig */;
+			baseConfigurationReference = D10CCE371AD83AEDCF925B44 /* Pods-Taskify.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -534,7 +619,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 50871FAE849EBF60DBE0622E /* Pods-Taskify.release.xcconfig */;
+			baseConfigurationReference = 0838E323CD9BA919F69E9353 /* Pods-Taskify.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
