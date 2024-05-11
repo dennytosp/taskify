@@ -69,19 +69,20 @@ const Header: FC<HeaderProps> = ({
           {title && (
             <SemiBoldText
               children={title}
-              style={[!rightIcon && !hideLeftIcon && styles.textCenterHeader]}
+              style={[
+                !rightIcon && !hideLeftIcon && styles.textCenterHeader,
+                { fontSize: moderateScale(16) },
+              ]}
             />
           )}
         </View>
 
         <View style={[styles.wrapperRight]}>
-          {rightIcon && (
-            <Pressable
-              onPress={onPressRight}
-              style={{ marginLeft: moderateScale(16) }}>
-              <Image source={rightIcon} />
-            </Pressable>
-          )}
+          <TouchableOpacity
+            onPress={onPressRight}
+            style={{ marginLeft: moderateScale(16) }}>
+            <Image source={rightIcon ?? Icons.plus} />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </View>

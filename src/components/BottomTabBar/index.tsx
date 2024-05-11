@@ -1,24 +1,23 @@
+import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import React, { useMemo } from 'react';
-import { Pressable, StyleSheet, TouchableOpacity, View } from 'react-native';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import { RegularText, SemiBoldText } from '../Text';
+
+import { Image } from '@/components';
+import { AppStyles } from '@/styles';
+import { COLORS, Icons } from '@/theme';
+import { translate } from '@/translations/translate';
+import { isIos } from '@/utils/device';
 import {
   MetricsSizes,
   moderateScale,
   moderateVerticalScale,
   width,
 } from '@/utils/scale';
-import { COLORS, Icons } from '@/theme';
-import { isIos } from '@/utils/device';
-import { Image } from '@/components';
-import { AppStyles } from '@/styles';
-import { translate } from '@/translations/translate';
 
 const AnimatedBottomTabBar = ({
   state,
@@ -108,7 +107,7 @@ const AnimatedBottomTabBar = ({
           };
 
           return (
-            <TouchableOpacity
+            <Pressable
               key={'bottom-tab-' + route.key}
               accessibilityRole="button"
               accessibilityState={isFocused ? { selected: true } : {}}
@@ -137,7 +136,7 @@ const AnimatedBottomTabBar = ({
                   {label}
                 </SemiBoldText> */}
               </Animated.View>
-            </TouchableOpacity>
+            </Pressable>
           );
         })}
       </View>
@@ -184,6 +183,13 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     borderRadius: 20,
     backgroundColor: COLORS.white,
+    shadowColor: COLORS.black,
+    shadowOffset: {
+      width: 0,
+      height: moderateVerticalScale(8),
+    },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
   },
   containerMaterial: {
     backgroundColor: COLORS.white,
@@ -196,12 +202,10 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 44,
     borderTopRightRadius: 44,
     height: '80%',
-    // opacity: 0.7,
   },
   tabItemMaterial: {
     borderRadius: 12,
     height: moderateVerticalScale(44),
-    // opacity: 0.7,
   },
   button: {
     flex: 1,

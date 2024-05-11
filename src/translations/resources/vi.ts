@@ -54,6 +54,7 @@ export default {
     confirm: 'Xác nhận',
     proceed: 'Tiếp tục',
     add: 'Thêm',
+    create: 'Tạo',
     done: 'Hoàn tất',
     delete: 'Xoá',
     edit: 'Chỉnh sửa',
@@ -116,6 +117,35 @@ export default {
       tab2: 'Hoàn thành',
       tab3: 'Phân loại',
       tab4: 'Tài khoản',
+    },
+    greetings: {
+      goodMorning: 'Chào buổi sáng {{name}}',
+      goodAfternoon: 'Chào buổi chiều, {{name}}',
+      goodEvening: 'Chào buổi tối, {{name}}',
+      goodNight: 'Chào buổi đêm, {{name}}',
+      hello: 'Xin chào {{name}}',
+    },
+    home: {
+      itsTime: `Đây là {{time}} - {{countTasks}} việc cần làm`,
+      searchPlaceHolder: 'Tìm kiếm việc càn làm...',
+    },
+    categories: {
+      searchPlaceHolder: 'Tìm kiếm danh mục...',
+      nameCategory: 'Tên danh mục',
+      enterSubtitle: 'Vui lòng nhập tên danh mục cần tạo',
+    },
+    common: {
+      nameTask: 'Tên việc cần làm',
+      createTask: 'Tạo việc cần làm',
+      updateTask: 'Cập nhật việc cần làm',
+    },
+    enterTaskify: {
+      createTaskSubtitle: 'Vui lòng nhập việc cần làm để tạo mới',
+      createTaskSuggest: `Bạn không muốn tạo mới nữa?`,
+    },
+    random: {
+      readingBook: 'Đọc sách',
+      work: 'Làm việc',
     },
   },
 };

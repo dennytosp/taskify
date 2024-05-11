@@ -1,12 +1,17 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { BlurView } from '@react-native-community/blur';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {
+  BottomTabScreenProps,
+  createBottomTabNavigator,
+} from '@react-navigation/bottom-tabs';
 
 import { AnimatedBottomTabBar } from '@/components';
 import { Categories, Completed, Home, Profile } from '@/screens';
 import { translate } from '@/translations/translate';
 import { RoutesBottomTabStack } from '../routes';
+import { CompositeScreenProps } from '@react-navigation/native';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 
 export type BottomTabStackParamsList = {
   [RoutesBottomTabStack.HOME]: undefined;
@@ -14,6 +19,12 @@ export type BottomTabStackParamsList = {
   [RoutesBottomTabStack.PROFILE]: undefined;
   [RoutesBottomTabStack.COMPLETED]: undefined;
 };
+
+export type RootTabScreenProps<Screen extends keyof BottomTabStackParamsList> =
+  CompositeScreenProps<
+    BottomTabScreenProps<BottomTabStackParamsList, Screen>,
+    NativeStackScreenProps<BottomTabStackParamsList>
+  >;
 
 const Tab = createBottomTabNavigator<BottomTabStackParamsList>();
 
@@ -43,12 +54,12 @@ const BottomTabStack = () => {
       />
       <Tab.Screen
         name={RoutesBottomTabStack.COMPLETED}
-        component={Categories}
+        component={Completed}
         options={{ tabBarLabel: translate('taskify.bottomTab.tab2') }}
       />
       <Tab.Screen
         name={RoutesBottomTabStack.CATEGORIES}
-        component={Completed}
+        component={Categories}
         options={{ tabBarLabel: translate('taskify.bottomTab.tab3') }}
       />
       <Tab.Screen
