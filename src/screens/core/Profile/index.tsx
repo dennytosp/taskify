@@ -7,14 +7,14 @@ import { styles } from './style';
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.BOTTOM_TAB_STACK>;
 
-const Home = () => {
+const Profile = () => {
   const navigation = useNavigation<NavigationProps['navigation']>();
 
   return (
     <View style={[styles.container]}>
-      <Text>Home</Text>
+      <Text>Profile</Text>
     </View>
   );
 };
 
-export default Home;
+export default Profile;

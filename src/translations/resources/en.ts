@@ -111,5 +111,11 @@ export default {
       didYouRememberThePassword: 'Did you remember the password?',
       verify: 'Verify',
     },
+    bottomTab: {
+      tab1: 'Home',
+      tab2: 'Completed',
+      tab3: 'Categories',
+      tab4: 'Profile',
+    },
   },
 };

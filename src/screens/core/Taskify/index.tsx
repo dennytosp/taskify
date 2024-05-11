@@ -5,16 +5,16 @@ import { RoutesRootStack } from '@/navigators/routes';
 import { styles } from './style';
 
 type NavigationProps =
-  ReactNavigation.RootStackScreenProps<RoutesRootStack.BOTTOM_TAB_STACK>;
+  ReactNavigation.RootStackScreenProps<RoutesRootStack.MAIN_STACK>;
 
-const Home = () => {
+const Taskify = () => {
   const navigation = useNavigation<NavigationProps['navigation']>();
 
   return (
     <View style={[styles.container]}>
-      <Text>Home</Text>
+      <Text>Taskify</Text>
     </View>
   );
 };
 
-export default Home;
+export default Taskify;

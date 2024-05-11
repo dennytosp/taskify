@@ -1,6 +1,7 @@
 import AuthStack from './auth';
+import BottomTabStack from './bottom-tab';
 import MainStack from './main';
-import RootStack from './root';
 import OtherStack from './other';
+import RootStack from './root';
 
-export { AuthStack, MainStack,OtherStack, RootStack };
+export { AuthStack, BottomTabStack, MainStack, OtherStack, RootStack };

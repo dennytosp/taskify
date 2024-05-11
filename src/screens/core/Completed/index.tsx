@@ -7,14 +7,14 @@ import { styles } from './style';
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.BOTTOM_TAB_STACK>;
 
-const Home = () => {
+const Completed = () => {
   const navigation = useNavigation<NavigationProps['navigation']>();
 
   return (
     <View style={[styles.container]}>
-      <Text>Home</Text>
+      <Text>Completed</Text>
     </View>
   );
 };
 
-export default Home;
+export default Completed;

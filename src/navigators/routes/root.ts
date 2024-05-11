@@ -1,4 +1,4 @@
 export enum RoutesMainStack {
-  HOME = 'HOME',
+  TASKIFY = 'TASKIFY',
   EDIT_TASKIFY = 'EDIT_TASKIFY',
 }

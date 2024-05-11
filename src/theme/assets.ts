@@ -9,6 +9,10 @@ const Icons = {
   facebook: require('@/assets/icons/facebook/facebook.png'),
   google: require('@/assets/icons/google/google.png'),
   forwardLeft: require('@/assets/icons/forward-left/forward-left.png'),
+  home: require('@/assets/icons/home/home.png'),
+  categories: require('@/assets/icons/categories/categories.png'),
+  wallet: require('@/assets/icons/wallet/wallet.png'),
+  profile: require('@/assets/icons/profile/profile.png'),
 };
 
 export { Icons, Images };

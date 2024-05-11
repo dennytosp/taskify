@@ -111,5 +111,11 @@ export default {
       didYouRememberThePassword: 'Bạn đã nhớ mật khẩu?',
       verify: 'Xác thực',
     },
+    bottomTab: {
+      tab1: 'Trang chủ',
+      tab2: 'Hoàn thành',
+      tab3: 'Phân loại',
+      tab4: 'Tài khoản',
+    },
   },
 };

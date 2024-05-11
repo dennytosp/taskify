@@ -8,6 +8,7 @@ const [shortDimension, longDimension] =
 //Guideline sizes are based on standard ~5" screen mobile device
 const guidelineBaseWidth = 393;
 const guidelineBaseHeight = 852;
+/* 430 932 */
 
 const scale = (size: number) => (shortDimension / guidelineBaseWidth) * size;
 
