@@ -5,5 +5,15 @@ import Header from './Header';
 import Icon from './Icon';
 import { Image } from './Image';
 import Input from './Input';
+import { Modal } from './Modal';
 
-export { AnimatedBottomTabBar, Button, CheckBox, Header, Icon, Image, Input };
+export {
+  AnimatedBottomTabBar,
+  Button,
+  CheckBox,
+  Header,
+  Icon,
+  Image,
+  Input,
+  Modal,
+};
