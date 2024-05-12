@@ -91,6 +91,15 @@ export const AppStyles = StyleSheet.create({
     position: 'absolute',
     zIndex: 999,
   },
+  override: {
+    ...StyleSheet.absoluteFillObject,
+    flex: 1,
+    zIndex: 999,
+    height: '100%',
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   fill: { flex: 1 },
   fullSize: {
     height: '100%',

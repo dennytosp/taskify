@@ -62,7 +62,7 @@ const AppLoaderComponent = forwardRef(
                   color={COLORS.primary}
                 />
               ) : (
-                <ActivityIndicator color={COLORS.primary} size="large" />
+                <ActivityIndicator color={COLORS.primary} size="small" />
               )}
             </View>
           </View>

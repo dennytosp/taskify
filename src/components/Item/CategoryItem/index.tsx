@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 
 import { CategoryResponseModel } from '@/api/types';
 import { Image } from '@/components/Image';
@@ -21,27 +21,28 @@ const CategoryItem = (props: Props) => {
 
   return (
     <ScrollModalContainer onPressLeftHeader={onPressLeftHeader}>
-      {category.map(
-        (categoryItem: CategoryResponseModel, categoryIndex: number) => {
+      <FlatList
+        data={category}
+        scrollEnabled={false}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(item, index) => `category-${item.id}`}
+        renderItem={({ item, index }) => {
           return (
             <TouchableOpacity
-              key={'category-' + categoryItem.id}
+              key={'category-' + item.id}
               style={[styles.wrapContent]}
-              onPress={() => onPress(categoryItem.name)}>
+              onPress={() => onPress(item.name)}>
               <Image
-                source={{ uri: categoryItem.image }}
+                source={{ uri: item.image }}
                 customStyle={[
                   { marginRight: moderateScale(8), borderRadius: 8 },
                 ]}
               />
-              <RegularText
-                children={categoryItem.name}
-                style={[styles.textContent]}
-              />
+              <RegularText children={item.name} style={[styles.textContent]} />
             </TouchableOpacity>
           );
-        },
-      )}
+        }}
+      />
     </ScrollModalContainer>
   );
 };
