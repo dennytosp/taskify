@@ -28,7 +28,7 @@ export const styles = StyleSheet.create({
     borderColor: COLORS.border,
   },
   textButton: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(14),
     color: COLORS.white,
   },
 });

@@ -26,6 +26,7 @@ const SignIn = () => {
 
   const handleSignIn = () => {
     console.log('Pressed Sign In');
+    navigation.navigate(RoutesRootStack.BOTTOM_TAB_STACK);
   };
 
   const handleGoogle = () => {

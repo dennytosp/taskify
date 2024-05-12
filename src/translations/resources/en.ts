@@ -54,6 +54,7 @@ export default {
     confirm: 'Confirm',
     proceed: 'Proceed',
     add: 'Add',
+    create: 'Create',
     done: 'Done',
     delete: 'Delete',
     edit: 'Edit',
@@ -116,6 +117,37 @@ export default {
       tab2: 'Completed',
       tab3: 'Categories',
       tab4: 'Profile',
+    },
+    greetings: {
+      goodMorning: 'Good morning {{name}}',
+      goodAfternoon: 'Good afternoon, {{name}}',
+      goodEvening: 'Good evening, {{name}}',
+      goodNight: 'Good night, {{name}}',
+      hello: 'Hello {{name}}',
+    },
+    home: {
+      itsTime: `It's {{time}} - {{countTasks}} tasks`,
+      searchPlaceHolder: 'Search for task...',
+    },
+    categories: {
+      searchPlaceHolder: 'Search for categories...',
+      createCategory: 'Create category',
+      updateCategory: 'Update category',
+      nameCategory: 'Name category',
+      enterSubtitle: 'Please enter the name of the category to create',
+    },
+    common: {
+      nameTask: 'Name task',
+      createTask: 'Create task',
+      updateTask: 'Update task',
+    },
+    enterTaskify: {
+      createTaskSubtitle: 'Please enter the task to create',
+      createTaskSuggest: `You don't want to create a new one anymore, right?`,
+    },
+    random: {
+      readingBook: 'Reading book',
+      work: 'Work',
     },
   },
 };

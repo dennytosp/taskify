@@ -30,7 +30,7 @@ const RootStack = () => {
   const { isFirstTimeLaunch } = useAppSelector(getAppState);
   const routeName = isFirstTimeLaunch
     ? RoutesRootStack.OTHER_STACK
-    : RoutesRootStack.BOTTOM_TAB_STACK;
+    : RoutesRootStack.AUTH_STACK;
 
   return (
     <>
