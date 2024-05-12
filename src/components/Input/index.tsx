@@ -33,6 +33,7 @@ const Input = forwardRef((props: InputProps, ref: Ref<InputRef>) => {
     inputStyle,
     defaultValue,
     isRequired,
+    isPickerImage,
     isPassword = false,
     isUsingModal,
     leftIcon,
@@ -127,6 +128,25 @@ const Input = forwardRef((props: InputProps, ref: Ref<InputRef>) => {
       : colorDefault ?? COLORS.border;
   };
 
+  const renderDisableInput = () => {
+    if (isPickerImage && inputValue) {
+      return (
+        <Image
+          resizeMode="cover"
+          source={{ uri: inputValue }}
+          customStyle={[{ width: moderateScale(60), borderRadius: 8 }]}
+        />
+      );
+    }
+
+    return (
+      <RegularText
+        children={inputValue || placeHolder}
+        style={[styles.textInput, !inputValue && { color: COLORS.border }]}
+      />
+    );
+  };
+
   return (
     <View
       style={[
@@ -167,13 +187,7 @@ const Input = forwardRef((props: InputProps, ref: Ref<InputRef>) => {
           )}
 
           {isDisabled ? (
-            <RegularText
-              children={inputValue || placeHolder}
-              style={[
-                styles.textInput,
-                !inputValue && { color: COLORS.border },
-              ]}
-            />
+            <>{renderDisableInput()}</>
           ) : (
             <TextInput
               ref={inputRef}

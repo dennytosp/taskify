@@ -5,6 +5,7 @@ import Header from './Header';
 import Icon from './Icon';
 import { Image } from './Image';
 import Input from './Input';
+import ScrollModalContainer from './ScrollModalContainer';
 import { Modal } from './Modal';
 
 export {
@@ -16,4 +17,5 @@ export {
   Image,
   Input,
   Modal,
+  ScrollModalContainer,
 };

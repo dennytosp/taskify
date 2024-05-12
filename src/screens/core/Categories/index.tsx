@@ -1,50 +1,59 @@
-import React, { useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { FlatList, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { faker } from '@faker-js/faker';
 import { useNavigation } from '@react-navigation/native';
 
+import { deleteCategory, getCategories } from '@/api/services/category';
+import { CategoryResponseModel } from '@/api/types';
 import { Header } from '@/components';
 import { TaskItem } from '@/components/Item';
 import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
+import { getCategoryState } from '@/stores/slices/categorySlice';
+import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { translate } from '@/translations/translate';
-import { getGreeting } from '@/utils/helper';
+import { convertToUnsignedString } from '@/utils/helper';
 import { moderateScale, moderateVerticalScale } from '@/utils/scale';
+import { debounce } from 'lodash';
 import { styles } from './style';
 
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.BOTTOM_TAB_STACK>;
 
-faker.seed(20);
-
-const DATA = [...Array(15).keys()].map((_, i) => {
-  return {
-    key: faker.string.uuid(),
-    image: faker.image.urlLoremFlickr(),
-    name: faker.commerce.productName(),
-    description: faker.lorem.paragraph(),
-  };
-});
-
 const Categories = () => {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<NavigationProps['navigation']>();
-  const greeting = getGreeting('Mad Dinh');
+  const dispatch = useAppDispatch();
 
-  const [searchKey, setSearchKey] = useState<string>();
+  const { category } = useAppSelector(getCategoryState);
+  const [searchKey, setSearchKey] = useState<string>('');
 
-  const onSearch = (text: string) => {
-    setSearchKey(text);
-  };
+  const myCategories = useMemo(() => {
+    const keySearch = convertToUnsignedString(searchKey?.toUpperCase());
+    return category.filter(i => {
+      const taskName = convertToUnsignedString(i?.name?.toUpperCase());
+      return taskName?.includes(keySearch);
+    });
+  }, [searchKey, category]);
 
-  const onCreateTask = () => {
+  useEffect(() => {
+    dispatch(getCategories());
+  }, []);
+
+  const onSearch = useCallback(
+    debounce((text: string) => {
+      setSearchKey(text);
+    }, 500),
+    [],
+  );
+
+  const onCreateCategory = () => {
     navigation.navigate(RoutesRootStack.MAIN_STACK, {
       screen: RoutesMainStack.ENTER_CATEGORY,
       params: { isEdit: false },
     });
   };
 
-  const renderItem = (item: (typeof DATA)[0], index: number) => {
+  const renderItem = (item: CategoryResponseModel, index: number) => {
     const onEdit = () => {
       navigation.navigate(RoutesRootStack.MAIN_STACK, {
         screen: RoutesMainStack.ENTER_CATEGORY,
@@ -52,7 +61,9 @@ const Categories = () => {
       });
     };
 
-    const onDelete = () => {};
+    const onDelete = () => {
+      dispatch(deleteCategory({ id: item?.id }));
+    };
 
     return (
       <TaskItem item={item} index={index} onDelete={onDelete} onEdit={onEdit} />
@@ -65,7 +76,7 @@ const Categories = () => {
         hideLeftIcon
         title={translate('taskify.bottomTab.tab3')}
         containerStyle={[{ paddingBottom: moderateVerticalScale(8) }]}
-        onPressRight={onCreateTask}
+        onPressRight={onCreateCategory}
       />
 
       <View style={[styles.wrapperSearchInput]}>
@@ -73,14 +84,13 @@ const Categories = () => {
           style={[styles.searchInput]}
           placeholder={translate('taskify.categories.searchPlaceHolder')}
           onChangeText={onSearch}
-          value={searchKey}
         />
       </View>
 
       <FlatList
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={'handled'}
-        data={DATA}
+        data={myCategories}
         renderItem={({ item, index }) => <>{renderItem(item, index)}</>}
         ItemSeparatorComponent={() => (
           <View style={[{ marginTop: moderateVerticalScale(8) }]} />
