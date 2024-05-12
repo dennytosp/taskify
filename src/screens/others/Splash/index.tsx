@@ -3,8 +3,10 @@ import { Animated, Text, View } from 'react-native';
 import AnimatedBootSplash from 'react-native-bootsplash';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import { styles } from './style';
 import { translate } from '@/translations/translate';
+import { isIos } from '@/utils/device';
+import { moderateScale } from '@/utils/scale';
+import { styles } from './style';
 
 type Props = {
   onAnimationEnd: () => void;
@@ -45,7 +47,10 @@ const Splash = ({ onAnimationEnd }: Props) => {
         style={[logo.style, { transform: [{ translateY }] }]}
       />
 
-      <View style={[{ position: 'absolute', bottom }]}>
+      <View
+        style={[
+          { position: 'absolute', bottom: isIos ? bottom : moderateScale(32) },
+        ]}>
         <Text style={[styles.textLogo]}>
           {translate('app.name').toUpperCase()}
         </Text>
