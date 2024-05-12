@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     fontFamily: FONTS.regular,
     fontSize: moderateScale(12),
-    marginTop: moderateVerticalScale(4),
+    marginTop: moderateVerticalScale(0),
     color: COLORS.text,
     padding: 0,
   },

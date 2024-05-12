@@ -10,11 +10,15 @@ import {
 } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { appReducer, authReducer } from './slices';
+
+import { appReducer, authReducer, taskReducer } from './slices';
+import { categoryReducer } from './slices/categorySlice';
 
 const reducers = combineReducers({
   app: appReducer,
   auth: authReducer,
+  task: taskReducer,
+  category: categoryReducer,
 });
 
 const persistConfig = {
@@ -34,7 +38,6 @@ export const store = configureStore({
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
     });
-
 
     return middlewares;
   },

@@ -44,8 +44,29 @@ const truncateText = (text: string, maxWords?: number, separator?: string) => {
   return truncatedText;
 };
 
+const convertToUnsignedString = (str: string): string => {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+};
+
 const connectToRemoteDebugger = (isDebugging: boolean) => {
   NativeDevSettings.setIsDebuggingRemotely(isDebugging);
 };
 
-export { connectToRemoteDebugger, debounce, get, mockArray, truncateText };
+const filterUniqueArray = (arr: Array<any>, key: string) => {
+  const uniqueCategory = arr.filter((item, index, self) => {
+    const findIndexObject = self.findIndex(obj => obj[key] === item[key]);
+    return findIndexObject === index;
+  });
+
+  return uniqueCategory;
+};
+
+export {
+  connectToRemoteDebugger,
+  convertToUnsignedString,
+  debounce,
+  filterUniqueArray,
+  get,
+  mockArray,
+  truncateText,
+};

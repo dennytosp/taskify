@@ -17,7 +17,7 @@ interface InputProps {
   inputStyle?: StyleProp<ViewStyle>;
   defaultValue?: string;
   isRequired?: boolean;
-  isDisableInput?: boolean;
+  isPickerImage?: boolean;
   isUsingModal?: boolean;
   isPassword?: boolean;
   leftIcon?: Source | ImageRequireSource;

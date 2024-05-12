@@ -13,6 +13,8 @@ const Icons = {
   categories: require('@/assets/icons/categories/categories.png'),
   wallet: require('@/assets/icons/wallet/wallet.png'),
   profile: require('@/assets/icons/profile/profile.png'),
+  tick: require('@/assets/icons/tick/tick.png'),
+  plus: require('@/assets/icons/plus/plus.png'),
 };
 
 export { Icons, Images };

@@ -23,6 +23,7 @@ type HeaderProps = {
   title?: string;
   leftIcon?: Source | ImageRequireSource;
   rightIcon?: Source | ImageRequireSource;
+  onPressLeft?: () => void;
   onPressRight?: () => void;
   hideLeftIcon?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -38,11 +39,16 @@ const Header: FC<HeaderProps> = ({
   leftIcon,
   hideLeftIcon,
   rightIcon,
+  onPressLeft,
   onPressRight,
 }) => {
   const navigation = useNavigation<NavigationProps['navigation']>();
 
   const onGoBack = () => {
+    if (onPressLeft) {
+      return onPressLeft();
+    }
+
     if (navigation.canGoBack()) {
       navigation.goBack();
     }
@@ -69,19 +75,20 @@ const Header: FC<HeaderProps> = ({
           {title && (
             <SemiBoldText
               children={title}
-              style={[!rightIcon && !hideLeftIcon && styles.textCenterHeader]}
+              style={[
+                !rightIcon && !hideLeftIcon && styles.textCenterHeader,
+                { fontSize: moderateScale(16) },
+              ]}
             />
           )}
         </View>
 
         <View style={[styles.wrapperRight]}>
-          {rightIcon && (
-            <Pressable
-              onPress={onPressRight}
-              style={{ marginLeft: moderateScale(16) }}>
-              <Image source={rightIcon} />
-            </Pressable>
-          )}
+          <TouchableOpacity
+            onPress={onPressRight}
+            style={{ marginLeft: moderateScale(16) }}>
+            <Image source={rightIcon ?? Icons.plus} />
+          </TouchableOpacity>
         </View>
       </SafeAreaView>
     </View>
