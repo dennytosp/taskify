@@ -57,7 +57,7 @@ const InitializeApp = (props: InitializeAppType) => {
 
       {visibleBootSplash && <Splash onAnimationEnd={onBootSplashCompleted} />}
 
-      {/* <AppLoader ref={appLoaderHolder} /> */}
+      <AppLoader ref={appLoaderHolder} />
     </>
   );
 };
