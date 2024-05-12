@@ -23,6 +23,7 @@ type HeaderProps = {
   title?: string;
   leftIcon?: Source | ImageRequireSource;
   rightIcon?: Source | ImageRequireSource;
+  onPressLeft?: () => void;
   onPressRight?: () => void;
   hideLeftIcon?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -38,11 +39,16 @@ const Header: FC<HeaderProps> = ({
   leftIcon,
   hideLeftIcon,
   rightIcon,
+  onPressLeft,
   onPressRight,
 }) => {
   const navigation = useNavigation<NavigationProps['navigation']>();
 
   const onGoBack = () => {
+    if (onPressLeft) {
+      return onPressLeft();
+    }
+
     if (navigation.canGoBack()) {
       navigation.goBack();
     }

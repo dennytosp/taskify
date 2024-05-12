@@ -5,8 +5,26 @@ import { EnterCategory, EnterTaskify, Taskify } from '@/screens';
 
 export type MainStackParamsList = {
   [RoutesMainStack.TASKIFY]: undefined;
-  [RoutesMainStack.ENTER_TASKIFY]: undefined;
-  [RoutesMainStack.ENTER_CATEGORY]: undefined;
+  [RoutesMainStack.ENTER_TASKIFY]: EnterTaskifyParams;
+  [RoutesMainStack.ENTER_CATEGORY]: EnterCategoryParams;
+};
+
+export type EnterTaskifyParams = {
+  item?: {
+    name: string;
+    description: string;
+    image?: string;
+  };
+  isEdit: boolean;
+};
+
+export type EnterCategoryParams = {
+  item?: {
+    name: string;
+    description: string;
+    image?: string;
+  };
+  isEdit: boolean;
 };
 
 const Main = createNativeStackNavigator<MainStackParamsList>();

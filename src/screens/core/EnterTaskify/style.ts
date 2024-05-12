@@ -26,12 +26,4 @@ export const styles = StyleSheet.create({
     width: '100%',
     borderRadius: 8,
   },
-  textDidYouRemember: {
-    fontSize: moderateScale(12),
-    color: COLORS.grey,
-  },
-  textSignIn: {
-    fontSize: moderateScale(12),
-    color: COLORS.primary,
-  },
 });

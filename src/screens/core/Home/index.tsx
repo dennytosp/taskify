@@ -1,10 +1,10 @@
-import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
-import { faker } from '@faker-js/faker';
-import { useNavigation } from '@react-navigation/native';
 import moment from 'moment';
 import React, { useState } from 'react';
 import { FlatList, TextInput, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
+import { faker } from '@faker-js/faker';
+import { useNavigation } from '@react-navigation/native';
 
 import { Header } from '@/components';
 import { TaskItem } from '@/components/Item';
@@ -39,7 +39,23 @@ const Home = () => {
   const onCreateTask = () => {
     navigation.navigate(RoutesRootStack.MAIN_STACK, {
       screen: RoutesMainStack.ENTER_TASKIFY,
+      params: { isEdit: false },
     });
+  };
+
+  const renderItem = (item: (typeof DATA)[0], index: number) => {
+    const onEdit = () => {
+      navigation.navigate(RoutesRootStack.MAIN_STACK, {
+        screen: RoutesMainStack.ENTER_TASKIFY,
+        params: { isEdit: true, item },
+      });
+    };
+
+    const onDelete = () => {};
+
+    return (
+      <TaskItem item={item} index={index} onDelete={onDelete} onEdit={onEdit} />
+    );
   };
 
   return (
@@ -51,7 +67,10 @@ const Home = () => {
         onPressRight={onCreateTask}
       />
       <SemiBoldText style={[styles.textCurrentTime]}>
-        {`It's ${moment().format('dddd, MMMM D YYYY')} - 5 tasks`}
+        {`${translate('taskify.home.itsTime', {
+          time: moment().format('dddd, MMMM D YYYY'),
+          countTasks: DATA.length,
+        })}`}
       </SemiBoldText>
 
       <View style={[styles.wrapperSearchInput]}>
@@ -67,7 +86,7 @@ const Home = () => {
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps={'handled'}
         data={DATA}
-        renderItem={({ item, index }) => <TaskItem item={item} index={index} />}
+        renderItem={({ item, index }) => <>{renderItem(item, index)}</>}
         ItemSeparatorComponent={() => (
           <View style={[{ marginTop: moderateVerticalScale(8) }]} />
         )}

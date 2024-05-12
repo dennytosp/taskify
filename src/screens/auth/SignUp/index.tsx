@@ -68,7 +68,7 @@ const SignUp = () => {
       </View>
 
       <RegularText style={[styles.textSubtitle]}>
-        {translate('taskify.auth.headerSubtitle')}
+        {translate('taskify.common.slogan')}
       </RegularText>
     </View>
   );

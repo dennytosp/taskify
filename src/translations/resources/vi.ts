@@ -94,7 +94,6 @@ export default {
       signIn: 'Đăng nhập',
       signUp: 'Đăng ký',
       forgotPassword: 'Quên mật khẩu',
-      headerSubtitle: 'Taskify nâng tầm chất lượng công việc',
       emailAddress: 'Địa chỉ Email',
       password: 'Mật khẩu',
       confirmPassword: 'Nhập lại mật khẩu',
@@ -131,17 +130,22 @@ export default {
     },
     categories: {
       searchPlaceHolder: 'Tìm kiếm danh mục...',
+      createCategory: 'Tạo danh mục',
+      updateCategory: 'Chỉnh sửa danh mục',
       nameCategory: 'Tên danh mục',
-      enterSubtitle: 'Vui lòng nhập tên danh mục cần tạo',
+      createCategorySubtitle: 'Vui lòng nhập tên danh mục cần tạo',
+      updateCategorySubtitle: 'Vui lòng nhập tên danh mục cần chỉnh sửa',
     },
     common: {
+      slogan: 'Taskify nâng tầm chất lượng công việc',
       nameTask: 'Tên việc cần làm',
       createTask: 'Tạo việc cần làm',
-      updateTask: 'Cập nhật việc cần làm',
+      updateTask: 'Chỉnh sửa việc cần làm',
+      chooseCategory: 'Chọn danh mục',
     },
     enterTaskify: {
       createTaskSubtitle: 'Vui lòng nhập việc cần làm để tạo mới',
-      createTaskSuggest: `Bạn không muốn tạo mới nữa?`,
+      updateTaskSubtitle: 'Vui lòng nhập việc cần làm để chỉnh sửa',
     },
     random: {
       readingBook: 'Đọc sách',
