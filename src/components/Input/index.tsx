@@ -34,7 +34,6 @@ const Input = forwardRef((props: InputProps, ref: Ref<InputRef>) => {
     defaultValue,
     isRequired,
     isPassword = false,
-    isDisableInput,
     isUsingModal,
     leftIcon,
     rightIcon,
@@ -57,7 +56,7 @@ const Input = forwardRef((props: InputProps, ref: Ref<InputRef>) => {
 
   const [inputFocus, setInputFocus] = useState<boolean>(false);
 
-  const isDisabled = onPressInput && isDisableInput;
+  const isDisabled = onPressInput && isUsingModal;
 
   useImperativeHandle(
     ref,
@@ -168,7 +167,13 @@ const Input = forwardRef((props: InputProps, ref: Ref<InputRef>) => {
           )}
 
           {isDisabled ? (
-            <RegularText children={inputValue} style={[styles.textInput]} />
+            <RegularText
+              children={inputValue || placeHolder}
+              style={[
+                styles.textInput,
+                !inputValue && { color: COLORS.border },
+              ]}
+            />
           ) : (
             <TextInput
               ref={inputRef}
