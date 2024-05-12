@@ -2,9 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AppState, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AppLoader } from '@/components';
 import { Splash } from '@/screens/others';
 import { useAppDispatch } from '@/stores/types';
+import { appLoaderHolder } from '@/utils/holder';
 import { connectToRemoteDebugger } from '../utils/helper';
+import { isIos } from '@/utils/device';
 
 type InitializeAppType = {};
 
@@ -17,7 +20,7 @@ const InitializeApp = (props: InitializeAppType) => {
   const isDebugging = false;
 
   useEffect(() => {
-    if (isDebugging) {
+    if (isIos && __DEV__) {
       connectToRemoteDebugger(isDebugging);
     }
   }, []);
