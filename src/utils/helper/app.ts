@@ -44,8 +44,19 @@ const truncateText = (text: string, maxWords?: number, separator?: string) => {
   return truncatedText;
 };
 
+const convertToUnsignedString = (str: string): string => {
+  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+};
+
 const connectToRemoteDebugger = (isDebugging: boolean) => {
   NativeDevSettings.setIsDebuggingRemotely(isDebugging);
 };
 
-export { connectToRemoteDebugger, debounce, get, mockArray, truncateText };
+export {
+  connectToRemoteDebugger,
+  convertToUnsignedString,
+  debounce,
+  get,
+  mockArray,
+  truncateText,
+};

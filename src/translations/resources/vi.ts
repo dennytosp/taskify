@@ -132,7 +132,7 @@ export default {
       searchPlaceHolder: 'Tìm kiếm danh mục...',
       createCategory: 'Tạo danh mục',
       updateCategory: 'Chỉnh sửa danh mục',
-      nameCategory: 'Tên danh mục',
+      categoryName: 'Tên danh mục',
       createCategorySubtitle: 'Vui lòng nhập tên danh mục cần tạo',
       updateCategorySubtitle: 'Vui lòng nhập tên danh mục cần chỉnh sửa',
     },
@@ -142,6 +142,8 @@ export default {
       createTask: 'Tạo việc cần làm',
       updateTask: 'Chỉnh sửa việc cần làm',
       chooseCategory: 'Chọn danh mục',
+      categoryImage: 'Ảnh danh mục',
+      chooseCategoryImage: 'Chọn ảnh danh mục',
     },
     enterTaskify: {
       createTaskSubtitle: 'Vui lòng nhập việc cần làm để tạo mới',

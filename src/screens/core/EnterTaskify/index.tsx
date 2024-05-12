@@ -1,3 +1,4 @@
+import moment from 'moment';
 import React, { useEffect, useRef } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
@@ -11,33 +12,57 @@ import { RoutesRootStack } from '@/navigators/routes';
 import { EnterTaskifyParams } from '@/navigators/stack/main';
 import { translate } from '@/translations/translate';
 import { styles } from './style';
+import { useAppDispatch } from '@/stores/types';
+import { postAddTask, putUpdateTask } from '@/api/services/task';
 
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.MAIN_STACK>;
 
 const EnterTaskify = () => {
+  const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProps['navigation']>();
   const route = useRoute<NavigationProps['route']>();
   const params = route.params as unknown as EnterTaskifyParams;
   const { isEdit } = params;
 
   const nameTaskRef = useRef<InputRef>(null);
-  const nameCategoryRef = useRef<InputRef>(null);
+  const categoryNameRef = useRef<InputRef>(null);
   const listCategoriesModalRef = useRef<ModalRef>(null);
 
   useEffect(() => {
-    if (isEdit && params?.item?.name) {
+    if (isEdit && params?.item) {
       nameTaskRef.current?.changeValue(params.item.name);
+      categoryNameRef.current?.changeValue(params.item.category);
     }
   }, []);
 
-  const handleButton = () => {
-    console.log('Pressed Button');
+  const handleButton = async () => {
+    if (isEdit) {
+      await dispatch(
+        putUpdateTask({
+          id: String(params?.item?.id),
+          name: nameTaskRef.current?.getValue(),
+          category: categoryNameRef.current?.getValue(),
+        }),
+      );
+    } else {
+      await dispatch(
+        postAddTask({
+          id: '$datatype.uuid',
+          name: nameTaskRef.current?.getValue(),
+          category: categoryNameRef.current?.getValue(),
+          createdAt: moment().format(),
+          isChecked: false,
+        }),
+      );
+    }
+
+    navigation.goBack();
   };
 
   const onSelectCategory = (name: string) => {
     listCategoriesModalRef.current?.hideModal();
-    nameCategoryRef.current?.changeValue(name);
+    categoryNameRef.current?.changeValue(name);
   };
 
   const renderHeader = () => (
@@ -62,11 +87,11 @@ const EnterTaskify = () => {
         title={translate('taskify.common.nameTask')}
       />
       <Input
-        ref={nameCategoryRef}
+        ref={categoryNameRef}
         isRequired={true}
         placeHolder={translate('taskify.random.work')}
         inputProps={{ maxLength: 200 }}
-        title={translate('taskify.categories.nameCategory')}
+        title={translate('taskify.categories.categoryName')}
         isUsingModal={true}
         onPressInput={() => listCategoriesModalRef.current?.showModal()}
         containerStyle={[{ marginBottom: 0 }]}

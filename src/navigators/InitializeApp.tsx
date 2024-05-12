@@ -5,6 +5,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Splash } from '@/screens/others';
 import { useAppDispatch } from '@/stores/types';
 import { connectToRemoteDebugger } from '../utils/helper';
+import { getTasks } from '@/api/services/task';
 
 type InitializeAppType = {};
 
@@ -17,9 +18,7 @@ const InitializeApp = (props: InitializeAppType) => {
   const isDebugging = false;
 
   useEffect(() => {
-    if (isDebugging) {
-      connectToRemoteDebugger(isDebugging);
-    }
+    connectToRemoteDebugger(isDebugging);
   }, []);
 
   useEffect(() => {
@@ -40,6 +39,7 @@ const InitializeApp = (props: InitializeAppType) => {
 
   const onBootSplashCompleted = async () => {
     setVisibleBootSplash(false);
+    dispatch(getTasks());
   };
 
   return (

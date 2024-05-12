@@ -132,7 +132,7 @@ export default {
       searchPlaceHolder: 'Search for categories...',
       createCategory: 'Create category',
       updateCategory: 'Update category',
-      nameCategory: 'Name category',
+      categoryName: 'Category name',
       createCategorySubtitle: 'Please enter the name of the category to create',
       updateCategorySubtitle: 'Please enter the name of the category to update',
     },
@@ -142,6 +142,8 @@ export default {
       createTask: 'Create task',
       updateTask: 'Edit task',
       chooseCategory: 'Choose category',
+      categoryImage: 'Image category',
+      chooseCategoryImage: 'Choose image category',
     },
     enterTaskify: {
       createTaskSubtitle: 'Please enter the task to create',

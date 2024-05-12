@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from 'react';
+import React, { FC, useCallback, useRef, useState } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import {
   Menu,
@@ -18,13 +18,13 @@ import { COLORS, FONTS } from '@/theme';
 import { translate } from '@/translations/translate';
 import { moderateScale } from '@/utils/scale';
 import { styles } from './style';
+import { CategoryResponseModel, TaskResponseModel } from '@/api/types';
+import { useAppDispatch } from '@/stores/types';
+import { putUpdateTask } from '@/api/services/task';
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
 
 interface ITaskItemProps {
-  item: {
-    name: string;
-    description: string;
-    image?: string;
-  };
+  item: TaskResponseModel | CategoryResponseModel;
   index: number;
   onChangeCheckBox?: (isChecked: boolean) => void;
   onEdit?: () => void;
@@ -36,12 +36,14 @@ faker.seed(50);
 
 const TaskItem: FC<ITaskItemProps> = ({
   item,
+  index,
   onChangeCheckBox,
   onEdit,
   onDelete,
   style,
 }) => {
-  const defaultValueCheckBox = false;
+  const dispatch = useAppDispatch();
+  const defaultValueCheckBox = item?.isChecked;
   const checkBoxRef = useRef<CheckBoxRef>(null);
   const [isCheck, setIsCheck] = useState(defaultValueCheckBox);
 
@@ -58,17 +60,24 @@ const TaskItem: FC<ITaskItemProps> = ({
     },
   ];
 
-  const handleCheckBox = (value: boolean) => {
-    setIsCheck(value);
-    onChangeCheckBox?.(value);
-  };
+  const handleCheckBox = useCallback(
+    (value: boolean) => {
+      setIsCheck(value);
+      onChangeCheckBox?.(value);
+      dispatch(putUpdateTask({ id: item.id, isChecked: value }));
+    },
+    [isCheck],
+  );
 
   const DropDown = () => (
     <Icon type={'Feather'} name={'more-vertical'} size={moderateScale(16)} />
   );
 
   return (
-    <View style={[styles.wrapperTaskifyItem, style]}>
+    <Animated.View
+      entering={FadeIn.delay(index * 100)}
+      exiting={FadeOut.delay(index * 100)}
+      style={[styles.wrapperTaskifyItem, style]}>
       <View style={[AppStyles.rowVCenter]}>
         <View style={[styles.checkBox]}>
           {item.image ? (
@@ -116,7 +125,7 @@ const TaskItem: FC<ITaskItemProps> = ({
         </MenuOptions>
       </Menu>
       {/* <View style={[styles.lineTaskDone]} /> */}
-    </View>
+    </Animated.View>
   );
 };
 

@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RoutesMainStack } from '../routes';
 import { EnterCategory, EnterTaskify, Taskify } from '@/screens';
+import { CategoryResponseModel, TaskResponseModel } from '@/api/types';
 
 export type MainStackParamsList = {
   [RoutesMainStack.TASKIFY]: undefined;
@@ -10,20 +11,12 @@ export type MainStackParamsList = {
 };
 
 export type EnterTaskifyParams = {
-  item?: {
-    name: string;
-    description: string;
-    image?: string;
-  };
+  item?: TaskResponseModel;
   isEdit: boolean;
 };
 
 export type EnterCategoryParams = {
-  item?: {
-    name: string;
-    description: string;
-    image?: string;
-  };
+  item?: CategoryResponseModel;
   isEdit: boolean;
 };
 
