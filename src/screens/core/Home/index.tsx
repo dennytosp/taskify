@@ -15,6 +15,7 @@ import { getTaskState } from '@/stores/slices';
 import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { translate } from '@/translations/translate';
 import { convertToUnsignedString, getGreeting } from '@/utils/helper';
+import { hideAppLoader, showAppLoader } from '@/utils/holder';
 import { moderateScale, moderateVerticalScale } from '@/utils/scale';
 import { debounce } from 'lodash';
 import { styles } from './style';
@@ -31,6 +32,7 @@ const Home = () => {
   const greeting = getGreeting('Mad Dinh');
 
   const [searchKey, setSearchKey] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const myTasks = useMemo(() => {
     const keySearch = convertToUnsignedString(searchKey?.toUpperCase());
@@ -40,7 +42,18 @@ const Home = () => {
     });
   }, [searchKey, task]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    onGetAPIs();
+  }, []);
+
+  const onGetAPIs = async () => {
+    await dispatch(getTasks());
+  };
+
+  const onChangeSearch = useCallback((text: string) => {
+    setSearchValue(text);
+    onSearch(text);
+  }, []);
 
   const onSearch = useCallback(
     debounce((text: string) => {
@@ -92,15 +105,22 @@ const Home = () => {
         <TextInput
           style={[styles.searchInput]}
           placeholder={translate('taskify.home.searchPlaceHolder')}
-          onChangeText={onSearch}
+          onChangeText={onChangeSearch}
+          value={searchValue}
         />
-        <TouchableOpacity onPress={() => setSearchKey('')}>
-          <Icon
-            type={'Ionicons'}
-            name={'close-outline'}
-            size={moderateScale(16)}
-          />
-        </TouchableOpacity>
+        {searchValue.length > 0 && (
+          <TouchableOpacity
+            onPress={() => {
+              setSearchValue('');
+              setSearchKey('');
+            }}>
+            <Icon
+              type={'Ionicons'}
+              name={'close-outline'}
+              size={moderateScale(16)}
+            />
+          </TouchableOpacity>
+        )}
       </View>
 
       <FlatList

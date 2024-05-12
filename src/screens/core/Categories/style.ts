@@ -16,10 +16,13 @@ export const styles = StyleSheet.create({
     backgroundColor: COLORS.lightGray,
     borderRadius: 12,
     marginTop: moderateVerticalScale(16),
+    ...AppStyles.rowCenterBetween,
+    padding: moderateScale(16),
   },
   searchInput: {
-    padding: moderateScale(16),
     fontFamily: FONTS.regular,
     fontSize: moderateScale(12),
+    flex: 1,
+    padding: 0,
   },
 });

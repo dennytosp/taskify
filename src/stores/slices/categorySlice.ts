@@ -20,7 +20,12 @@ const categorySlice = createSlice({
 
   extraReducers: builder => {
     builder.addCase(getCategories.fulfilled, (state, action) => {
-      state.category = action.payload || [];
+      const uniqueCategory = action.payload.filter((item, index, self) => {
+        const findIndexObject = self.findIndex(obj => obj.name === item.name);
+        return findIndexObject === index;
+      });
+
+      state.category = uniqueCategory || [];
     });
     builder.addCase(postAddCategory.fulfilled, (state, action) => {
       state.category = [...state.category, ...[action.payload]];

@@ -1,31 +1,23 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { TouchableOpacity } from 'react-native';
 
-import { getCategories } from '@/api/services/category';
 import { CategoryResponseModel } from '@/api/types';
 import { Image } from '@/components/Image';
 import ScrollModalContainer from '@/components/ScrollModalContainer';
 import { RegularText } from '@/components/Text';
-import { getCategoryState } from '@/stores/slices/categorySlice';
-import { useAppDispatch, useAppSelector } from '@/stores/types';
+import { useAppDispatch } from '@/stores/types';
 import { moderateScale } from '@/utils/scale';
 import { styles } from './style';
 
 interface Props {
   onPress: (label: string) => void;
   onPressLeftHeader: () => void;
+  category: CategoryResponseModel[];
 }
 
 const CategoryItem = (props: Props) => {
-  const { onPress, onPressLeftHeader } = props;
+  const { category, onPress, onPressLeftHeader } = props;
   const dispatch = useAppDispatch();
-  const { category } = useAppSelector(getCategoryState);
-
-  useEffect(() => {
-    if (category.length === 0) {
-      dispatch(getCategories());
-    }
-  }, []);
 
   return (
     <ScrollModalContainer onPressLeftHeader={onPressLeftHeader}>

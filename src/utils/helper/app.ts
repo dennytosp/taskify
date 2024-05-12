@@ -52,10 +52,20 @@ const connectToRemoteDebugger = (isDebugging: boolean) => {
   NativeDevSettings.setIsDebuggingRemotely(isDebugging);
 };
 
+const filterUniqueArray = (arr: Array<any>, key: string) => {
+  const uniqueCategory = arr.filter((item, index, self) => {
+    const findIndexObject = self.findIndex(obj => obj[key] === item[key]);
+    return findIndexObject === index;
+  });
+
+  return uniqueCategory;
+};
+
 export {
   connectToRemoteDebugger,
   convertToUnsignedString,
   debounce,
+  filterUniqueArray,
   get,
   mockArray,
   truncateText,

@@ -5,11 +5,13 @@ import Header from './Header';
 import Icon from './Icon';
 import { Image } from './Image';
 import Input from './Input';
-import ScrollModalContainer from './ScrollModalContainer';
+import { AppLoader } from './Loader';
 import { Modal } from './Modal';
+import ScrollModalContainer from './ScrollModalContainer';
 
 export {
   AnimatedBottomTabBar,
+  AppLoader,
   Button,
   CheckBox,
   Header,

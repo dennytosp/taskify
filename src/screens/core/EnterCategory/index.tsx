@@ -1,20 +1,25 @@
 import moment from 'moment';
-import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useEffect, useRef } from 'react';
 import { ScrollView, View } from 'react-native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { postAddCategory, putUpdateCategory } from '@/api/services/category';
+import {
+  getCategories,
+  postAddCategory,
+  putUpdateCategory,
+} from '@/api/services/category';
 import { Button, Header, Input, Modal } from '@/components';
 import { InputRef } from '@/components/Input/type';
+import { CategoryImagesItem } from '@/components/Item';
+import { ModalRef } from '@/components/Modal';
 import { RegularText } from '@/components/Text';
 import { RoutesRootStack } from '@/navigators/routes';
 import { EnterCategoryParams } from '@/navigators/stack/main';
-import { useAppDispatch } from '@/stores/types';
+import { getCategoryState } from '@/stores/slices/categorySlice';
+import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { AppStyles } from '@/styles';
 import { translate } from '@/translations/translate';
 import { styles } from './style';
-import { CategoryImagesItem, CategoryItem } from '@/components/Item';
-import { ModalRef } from '@/components/Modal';
 
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.MAIN_STACK>;
@@ -26,6 +31,8 @@ const EnterCategory = () => {
   const params = route.params as unknown as EnterCategoryParams;
   const { isEdit } = params;
 
+  const { category } = useAppSelector(getCategoryState);
+
   const categoryNameRef = useRef<InputRef>(null);
   const categoryImagesRef = useRef<InputRef>(null);
   const listCategoryImagesRef = useRef<ModalRef>(null);
@@ -34,6 +41,10 @@ const EnterCategory = () => {
     if (isEdit && params?.item) {
       categoryNameRef.current?.changeValue(params.item.name);
       categoryImagesRef.current?.changeValue(params.item.image);
+    }
+
+    if (category.length === 0) {
+      dispatch(getCategories());
     }
   }, []);
 
@@ -142,6 +153,7 @@ const EnterCategory = () => {
         ref={listCategoryImagesRef}
         children={() => (
           <CategoryImagesItem
+            category={category}
             onPress={onSelectCategoryImage}
             onPressLeftHeader={() => listCategoryImagesRef.current?.hideModal()}
           />

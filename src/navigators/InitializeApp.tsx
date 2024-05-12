@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import { AppState, StatusBar } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
+import { AppLoader } from '@/components';
 import { Splash } from '@/screens/others';
 import { useAppDispatch } from '@/stores/types';
+import { appLoaderHolder } from '@/utils/holder';
 import { connectToRemoteDebugger } from '../utils/helper';
-import { getTasks } from '@/api/services/task';
+import { isIos } from '@/utils/device';
 
 type InitializeAppType = {};
 
@@ -18,7 +20,9 @@ const InitializeApp = (props: InitializeAppType) => {
   const isDebugging = false;
 
   useEffect(() => {
-    connectToRemoteDebugger(isDebugging);
+    if (isIos && __DEV__) {
+      connectToRemoteDebugger(isDebugging);
+    }
   }, []);
 
   useEffect(() => {
@@ -39,7 +43,6 @@ const InitializeApp = (props: InitializeAppType) => {
 
   const onBootSplashCompleted = async () => {
     setVisibleBootSplash(false);
-    dispatch(getTasks());
   };
 
   return (
@@ -54,7 +57,7 @@ const InitializeApp = (props: InitializeAppType) => {
 
       {visibleBootSplash && <Splash onAnimationEnd={onBootSplashCompleted} />}
 
-      {/* <AppLoader ref={appLoaderHolder} /> */}
+      <AppLoader ref={appLoaderHolder} />
     </>
   );
 };
