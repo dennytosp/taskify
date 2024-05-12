@@ -3,6 +3,8 @@ import React, { useEffect, useRef } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
+import { getCategories } from '@/api/services/category';
+import { postAddTask, putUpdateTask } from '@/api/services/task';
 import { Button, Header, Input } from '@/components';
 import { InputRef } from '@/components/Input/type';
 import { CategoryItem } from '@/components/Item';
@@ -10,10 +12,10 @@ import { Modal, ModalRef } from '@/components/Modal';
 import { RegularText } from '@/components/Text';
 import { RoutesRootStack } from '@/navigators/routes';
 import { EnterTaskifyParams } from '@/navigators/stack/main';
+import { getCategoryState } from '@/stores/slices/categorySlice';
+import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { translate } from '@/translations/translate';
 import { styles } from './style';
-import { useAppDispatch } from '@/stores/types';
-import { postAddTask, putUpdateTask } from '@/api/services/task';
 
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.MAIN_STACK>;
@@ -25,6 +27,8 @@ const EnterTaskify = () => {
   const params = route.params as unknown as EnterTaskifyParams;
   const { isEdit } = params;
 
+  const { category } = useAppSelector(getCategoryState);
+
   const nameTaskRef = useRef<InputRef>(null);
   const categoryNameRef = useRef<InputRef>(null);
   const listCategoriesModalRef = useRef<ModalRef>(null);
@@ -33,6 +37,10 @@ const EnterTaskify = () => {
     if (isEdit && params?.item) {
       nameTaskRef.current?.changeValue(params.item.name);
       categoryNameRef.current?.changeValue(params.item.category);
+    }
+
+    if (category.length === 0) {
+      dispatch(getCategories());
     }
   }, []);
 
@@ -126,6 +134,7 @@ const EnterTaskify = () => {
         ref={listCategoriesModalRef}
         children={() => (
           <CategoryItem
+            category={category}
             onPress={onSelectCategory}
             onPressLeftHeader={() =>
               listCategoriesModalRef.current?.hideModal()

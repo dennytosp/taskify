@@ -1,11 +1,11 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { FlatList, TextInput, View } from 'react-native';
+import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 
 import { deleteCategory, getCategories } from '@/api/services/category';
 import { CategoryResponseModel } from '@/api/types';
-import { Header } from '@/components';
+import { Header, Icon } from '@/components';
 import { TaskItem } from '@/components/Item';
 import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
 import { getCategoryState } from '@/stores/slices/categorySlice';
@@ -26,6 +26,7 @@ const Categories = () => {
 
   const { category } = useAppSelector(getCategoryState);
   const [searchKey, setSearchKey] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>('');
 
   const myCategories = useMemo(() => {
     const keySearch = convertToUnsignedString(searchKey?.toUpperCase());
@@ -36,7 +37,18 @@ const Categories = () => {
   }, [searchKey, category]);
 
   useEffect(() => {
-    dispatch(getCategories());
+    onGetAPIs();
+  }, []);
+
+  const onGetAPIs = async () => {
+    if (category.length === 0) {
+      await dispatch(getCategories());
+    }
+  };
+
+  const onChangeSearch = useCallback((text: string) => {
+    setSearchValue(text);
+    onSearch(text);
   }, []);
 
   const onSearch = useCallback(
@@ -83,8 +95,22 @@ const Categories = () => {
         <TextInput
           style={[styles.searchInput]}
           placeholder={translate('taskify.categories.searchPlaceHolder')}
-          onChangeText={onSearch}
+          onChangeText={onChangeSearch}
+          value={searchValue}
         />
+        {searchValue.length > 0 && (
+          <TouchableOpacity
+            onPress={() => {
+              setSearchValue('');
+              setSearchKey('');
+            }}>
+            <Icon
+              type={'Ionicons'}
+              name={'close-outline'}
+              size={moderateScale(16)}
+            />
+          </TouchableOpacity>
+        )}
       </View>
 
       <FlatList

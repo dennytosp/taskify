@@ -1,10 +1,11 @@
 import Axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
 import { StyleSheet } from 'react-native';
 
+import Config from '@/config/environment';
+import { hideAppLoader } from '@/utils/holder';
 import { API_CONFIG } from './config';
 import { abortController, handleParameter } from './helper';
 import { ParameterPostFormData, ParamsNetwork, ResponseBase } from './types';
-import Config from '@/config/environment';
 
 const TOKEN_KEY_HEADER = 'authorization';
 const X_API_KEY = 'X-ApiKey';
@@ -150,6 +151,7 @@ async function Request<T = Record<string, unknown>>(
           // Show message dialog
         }
 
+        hideAppLoader();
         if (exception?.response?.status !== API_CONFIG.RESULT_CODE_PUSH_OUT) {
           // Show message dialog with force logout
           // showAppAlert({
