@@ -24,6 +24,7 @@
     "@react-navigation/native": "^6.1.17",
     "@react-navigation/native-stack": "^6.9.26",
     "@reduxjs/toolkit": "^2.2.3",
+    "axios": "^1.6.8",
     "i18next": "^23.11.3",
     "moment": "^2.30.1",
     "patch-package": "^8.0.0",
