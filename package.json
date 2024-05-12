@@ -23,6 +23,7 @@
     "@react-navigation/native-stack": "^6.9.26",
     "@reduxjs/toolkit": "^2.2.3",
     "i18next": "^23.11.3",
+    "moment": "^2.30.1",
     "patch-package": "^8.0.0",
     "react": "18.2.0",
     "react-fast-compare": "^3.2.2",
@@ -35,6 +36,7 @@
     "react-native-reanimated": "^3.11.0",
     "react-native-safe-area-context": "^4.10.1",
     "react-native-screens": "^3.31.1",
+    "react-native-svg": "^15.2.0",
     "react-native-vector-icons": "^10.1.0",
     "react-redux": "^9.1.2",
     "redux-persist": "^6.0.0"
