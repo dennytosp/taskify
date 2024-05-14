@@ -4,6 +4,7 @@ import { CheckBox } from './CheckBox';
 import Header from './Header';
 import Icon from './Icon';
 import { Image } from './Image';
+import Indicator from './Indicator';
 import Input from './Input';
 import { AppLoader } from './Loader';
 import { Modal } from './Modal';
@@ -17,6 +18,7 @@ export {
   Header,
   Icon,
   Image,
+  Indicator,
   Input,
   Modal,
   ScrollModalContainer,
