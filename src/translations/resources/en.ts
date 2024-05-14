@@ -144,6 +144,7 @@ export default {
       chooseCategory: 'Choose category',
       categoryImage: 'Image category',
       chooseCategoryImage: 'Choose image category',
+      dataIsEmpty: 'Data is empty',
     },
     enterTaskify: {
       createTaskSubtitle: 'Please enter the task to create',

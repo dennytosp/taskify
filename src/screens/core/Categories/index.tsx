@@ -1,24 +1,18 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { deleteCategory, getCategories } from '@/api/services/category';
 import { CategoryResponseModel } from '@/api/types';
-import { Header, Icon } from '@/components';
-import { TaskItem } from '@/components/Item';
+import { Header, Icon, Indicator } from '@/components';
+import CategoryItem from '@/components/Item/CategoryItem';
+import { RegularText } from '@/components/Text';
+import { useStateWhenMounted } from '@/hooks';
 import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
 import { getCategoryState } from '@/stores/slices/categorySlice';
 import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { AppStyles } from '@/styles';
-import { COLORS } from '@/theme';
 import { translate } from '@/translations/translate';
 import { convertToUnsignedString } from '@/utils/helper';
 import { moderateScale, moderateVerticalScale } from '@/utils/scale';
@@ -36,6 +30,7 @@ const Categories = () => {
   const { category } = useAppSelector(getCategoryState);
   const [searchKey, setSearchKey] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useStateWhenMounted(true);
 
   const myCategories = useMemo(() => {
     const keySearch = convertToUnsignedString(searchKey?.toUpperCase());
@@ -53,6 +48,7 @@ const Categories = () => {
     if (category.length === 0) {
       await dispatch(getCategories());
     }
+    setIsLoading(false);
   };
 
   const onChangeSearch = useCallback((text: string) => {
@@ -74,7 +70,18 @@ const Categories = () => {
     });
   };
 
-  const renderItem = (item: CategoryResponseModel, index: number) => {
+  const keyExtractor = useCallback(
+    (item: CategoryResponseModel, index: number) => `categories-tab-${item.id}`,
+    [],
+  );
+
+  const Item = ({
+    item,
+    index,
+  }: {
+    item: CategoryResponseModel;
+    index: number;
+  }) => {
     const onEdit = () => {
       navigation.navigate(RoutesRootStack.MAIN_STACK, {
         screen: RoutesMainStack.ENTER_CATEGORY,
@@ -82,12 +89,17 @@ const Categories = () => {
       });
     };
 
-    const onDelete = () => {
-      dispatch(deleteCategory({ id: item?.id }));
+    const onDelete = async () => {
+      await dispatch(deleteCategory({ id: item?.id }));
     };
 
     return (
-      <TaskItem item={item} index={index} onDelete={onDelete} onEdit={onEdit} />
+      <CategoryItem
+        item={item}
+        index={index}
+        onDelete={onDelete}
+        onEdit={onEdit}
+      />
     );
   };
 
@@ -122,25 +134,27 @@ const Categories = () => {
         )}
       </View>
 
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps={'handled'}
-        data={myCategories}
-        renderItem={({ item, index }) => <>{renderItem(item, index)}</>}
-        ItemSeparatorComponent={() => (
-          <View style={[{ marginTop: moderateVerticalScale(8) }]} />
-        )}
-        ListEmptyComponent={() => (
-          <ActivityIndicator
-            style={[StyleSheet.absoluteFillObject, AppStyles.columnCenter]}
-            color={COLORS.primary}
-            size="small"
-          />
-        )}
-        style={[{ marginTop: moderateScale(16) }]}
-        contentContainerStyle={[{ paddingBottom: insets.bottom * 4 }]}
-        keyExtractor={(item, index) => `home-tasks-${index}`}
-      />
+      <Indicator visible={isLoading}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps={'handled'}
+          data={myCategories}
+          renderItem={Item}
+          ItemSeparatorComponent={() => (
+            <View style={[{ marginTop: moderateVerticalScale(8) }]} />
+          )}
+          ListEmptyComponent={() => (
+            <View style={[AppStyles.columnCenter]}>
+              <RegularText>
+                {translate('taskify.common.dataIsEmpty')}
+              </RegularText>
+            </View>
+          )}
+          style={[{ marginTop: moderateScale(16) }]}
+          contentContainerStyle={[{ paddingBottom: insets.bottom * 4 }]}
+          keyExtractor={keyExtractor}
+        />
+      </Indicator>
     </View>
   );
 };

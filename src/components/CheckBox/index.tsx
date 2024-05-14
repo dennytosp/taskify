@@ -1,15 +1,4 @@
-import { AppStyles } from '@/styles';
-import { COLORS, Icons } from '@/theme';
-import { MetricsSizes } from '@/utils/scale';
-import React, {
-  Ref,
-  forwardRef,
-  memo,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
-} from 'react';
+import React, { Ref, memo, useCallback, useEffect, useRef } from 'react';
 import equals from 'react-fast-compare';
 import {
   Animated,
@@ -18,73 +7,36 @@ import {
   View,
   ViewStyle,
 } from 'react-native';
-import { Image } from '../Image';
-import { RegularText } from '../Text';
-import { styles } from './styles';
 
-export interface CheckBoxRef {
-  getStatus: () => boolean;
-  changeStatus: (isChecked: boolean) => void;
-  getErrorStatus: () => void;
-  changeErrorStatus: (status: boolean) => void;
-}
+import { AppStyles } from '@/styles';
+import { COLORS, Icons } from '@/theme';
+import { MetricsSizes } from '@/utils/scale';
+import { Image } from '../Image';
+import { styles } from './styles';
 
 interface Props {
   disable?: boolean;
-  messageError?: string;
+  isChecked: boolean;
   containerStyle?: StyleProp<ViewStyle>;
-  isDefaultActive?: boolean;
   renderCustom?: () => JSX.Element;
-  onChange?: (isChecked: boolean) => void;
+  onChange?: () => void;
 }
 
-const CheckBoxComponent = forwardRef((props: Props, ref: Ref<CheckBoxRef>) => {
-  const {
-    disable,
-    messageError,
-    isDefaultActive = false,
-    containerStyle,
-    renderCustom,
-    onChange,
-  } = props;
+const CheckBoxComponent = (props: Props) => {
+  const { disable, isChecked, containerStyle, renderCustom, onChange } = props;
 
-  const [isChecked, setIsChecked] = useState(isDefaultActive);
-  const [isError, setIsError] = useState(false);
   const focusedAnim = useRef(new Animated.Value(0)).current;
 
-  useImperativeHandle(ref, () => ({
-    getStatus,
-    changeStatus,
-    getErrorStatus,
-    changeErrorStatus,
-  }));
-
   useEffect(() => {
-    if (isDefaultActive) {
+    if (isChecked) {
       focusedAnim.setValue(1);
     }
   }, []);
 
-  const getStatus = () => isChecked;
-
-  const changeStatus = (status: boolean) => {
+  const onPress = useCallback(() => {
+    onChange?.();
     onProgressAnimation();
-    setIsChecked(status);
-  };
-
-  const changeErrorStatus = (status: boolean) => setIsError(status);
-
-  const getErrorStatus = () => isError;
-
-  const onPress = () => {
-    if (isError && !isChecked) {
-      setIsError(prev => !prev);
-    }
-
-    onProgressAnimation();
-    setIsChecked(prev => !prev);
-    onChange && onChange(!isChecked);
-  };
+  }, [focusedAnim, isChecked]);
 
   const onProgressAnimation = () => {
     Animated.spring(focusedAnim, {
@@ -111,19 +63,6 @@ const CheckBoxComponent = forwardRef((props: Props, ref: Ref<CheckBoxRef>) => {
     extrapolate: 'clamp',
   });
 
-  const renderError = () => {
-    if (isError && messageError) {
-      return (
-        <>
-          <RegularText
-            children={messageError}
-            style={[styles.textErrorWarning]}
-          />
-        </>
-      );
-    }
-  };
-
   return (
     <>
       <View style={[containerStyle]}>
@@ -146,10 +85,8 @@ const CheckBoxComponent = forwardRef((props: Props, ref: Ref<CheckBoxRef>) => {
 
         {renderCustom && renderCustom()}
       </View>
-
-      {renderError()}
     </>
   );
-});
+};
 
 export const CheckBox = memo(CheckBoxComponent, equals);

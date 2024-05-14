@@ -1,5 +1,5 @@
 import CategoryImagesItem from './CategoryImagesItem';
-import CategoryItem from './CategoryItem';
+import CategorySelectItem from './CategorySelectItem';
 import TaskItem from './TaskItem';
 
-export { CategoryImagesItem, CategoryItem, TaskItem };
+export { CategoryImagesItem, CategorySelectItem, TaskItem };

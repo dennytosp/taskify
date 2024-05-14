@@ -4,10 +4,10 @@ import { ScrollView, View } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { getCategories } from '@/api/services/category';
-import { postAddTask, putUpdateTask } from '@/api/services/task';
+import { getTasks, postAddTask, putUpdateTask } from '@/api/services/task';
 import { Button, Header, Input } from '@/components';
 import { InputRef } from '@/components/Input/type';
-import { CategoryItem } from '@/components/Item';
+import { CategorySelectItem } from '@/components/Item';
 import { Modal, ModalRef } from '@/components/Modal';
 import { RegularText } from '@/components/Text';
 import { RoutesRootStack } from '@/navigators/routes';
@@ -65,6 +65,7 @@ const EnterTaskify = () => {
       );
     }
 
+    await dispatch(getTasks());
     navigation.goBack();
   };
 
@@ -133,7 +134,7 @@ const EnterTaskify = () => {
       <Modal
         ref={listCategoriesModalRef}
         children={() => (
-          <CategoryItem
+          <CategorySelectItem
             category={category}
             onPress={onSelectCategory}
             onPressLeftHeader={() =>

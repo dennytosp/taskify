@@ -15,11 +15,4 @@ export const styles = StyleSheet.create({
   textLabelTaskify: {
     fontSize: moderateScale(12),
   },
-  lineTaskDone: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: COLORS.black,
-  },
 });

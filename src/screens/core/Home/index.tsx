@@ -1,27 +1,20 @@
 import moment from 'moment';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 
 import { deleteTask } from '@/api/services/task';
 import { getTasks } from '@/api/services/task/get-tasks';
 import { TaskResponseModel } from '@/api/types';
-import { Header, Icon } from '@/components';
+import { Header, Icon, Indicator } from '@/components';
 import { TaskItem } from '@/components/Item';
-import { SemiBoldText } from '@/components/Text';
+import { RegularText, SemiBoldText } from '@/components/Text';
+import { useStateWhenMounted } from '@/hooks';
 import { getTaskState } from '@/stores/slices';
 import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { AppStyles } from '@/styles';
-import { COLORS } from '@/theme';
 import { translate } from '@/translations/translate';
 import { convertToUnsignedString, getGreeting } from '@/utils/helper';
 import { moderateScale, moderateVerticalScale } from '@/utils/scale';
@@ -38,9 +31,11 @@ const Home = () => {
 
   const { task } = useAppSelector(getTaskState);
   const greeting = getGreeting('Mad Dinh');
+  const isFocused = useIsFocused();
 
   const [searchKey, setSearchKey] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
+  const [isLoading, setIsLoading] = useStateWhenMounted(true);
 
   const myTasks = useMemo(() => {
     const keySearch = convertToUnsignedString(searchKey?.toUpperCase());
@@ -56,6 +51,7 @@ const Home = () => {
 
   const onGetAPIs = async () => {
     await dispatch(getTasks());
+    setIsLoading(false);
   };
 
   const onChangeSearch = useCallback((text: string) => {
@@ -77,7 +73,18 @@ const Home = () => {
     });
   };
 
-  const renderItem = (item: TaskResponseModel, index: number) => {
+  const keyExtractor = (item: TaskResponseModel, index: number) =>
+    `home-tab-${item.id}`;
+
+  const Item = ({
+    item,
+    index,
+  }: {
+    item: TaskResponseModel;
+    index: number;
+  }) => {
+    console.log({ myTasks });
+
     const onEdit = () => {
       navigation.navigate(RoutesRootStack.MAIN_STACK, {
         screen: RoutesMainStack.ENTER_TASKIFY,
@@ -85,8 +92,8 @@ const Home = () => {
       });
     };
 
-    const onDelete = () => {
-      dispatch(deleteTask({ id: item?.id }));
+    const onDelete = async () => {
+      await dispatch(deleteTask({ id: item?.id }));
     };
 
     return (
@@ -131,25 +138,28 @@ const Home = () => {
         )}
       </View>
 
-      <FlatList
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps={'handled'}
-        data={myTasks}
-        renderItem={({ item, index }) => <>{renderItem(item, index)}</>}
-        ItemSeparatorComponent={() => (
-          <View style={[{ marginTop: moderateVerticalScale(8) }]} />
-        )}
-        ListEmptyComponent={() => (
-          <ActivityIndicator
-            style={[StyleSheet.absoluteFillObject, AppStyles.columnCenter]}
-            color={COLORS.primary}
-            size="small"
-          />
-        )}
-        style={[{ marginTop: moderateScale(16) }]}
-        contentContainerStyle={[{ paddingBottom: insets.bottom * 4 }]}
-        keyExtractor={(item, index) => `home-tasks-${index}`}
-      />
+      <Indicator visible={isLoading}>
+        <FlatList
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps={'handled'}
+          data={myTasks}
+          // renderItem={({ item, index }) => <Item item={item} index={index} />}
+          renderItem={Item}
+          ItemSeparatorComponent={() => (
+            <View style={[{ marginTop: moderateVerticalScale(8) }]} />
+          )}
+          ListEmptyComponent={() => (
+            <View style={[AppStyles.columnCenter]}>
+              <RegularText style={[{ fontSize: 14 }]}>
+                {translate('taskify.common.dataIsEmpty')}
+              </RegularText>
+            </View>
+          )}
+          style={[{ marginTop: moderateScale(16) }]}
+          contentContainerStyle={[{ paddingBottom: insets.bottom * 4 }]}
+          keyExtractor={keyExtractor}
+        />
+      </Indicator>
     </View>
   );
 };

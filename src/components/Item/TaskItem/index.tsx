@@ -1,4 +1,5 @@
-import React, { FC, useCallback, useRef, useState } from 'react';
+import { faker } from '@faker-js/faker';
+import React, { FC, useCallback, useState } from 'react';
 import { StyleProp, View, ViewStyle } from 'react-native';
 import {
   Menu,
@@ -7,45 +8,38 @@ import {
   MenuTrigger,
   renderers,
 } from 'react-native-popup-menu';
-import { faker } from '@faker-js/faker';
 
-import { CheckBox, CheckBoxRef } from '@/components/CheckBox';
+import { putUpdateTask } from '@/api/services/task';
+import { TaskResponseModel } from '@/api/types';
+import { CheckBox } from '@/components';
 import Icon from '@/components/Icon';
-import { Image } from '@/components/Image';
 import { RegularText } from '@/components/Text';
+import { useAppDispatch } from '@/stores/types';
 import { AppStyles } from '@/styles';
 import { COLORS, FONTS } from '@/theme';
 import { translate } from '@/translations/translate';
 import { moderateScale } from '@/utils/scale';
-import { styles } from './style';
-import { CategoryResponseModel, TaskResponseModel } from '@/api/types';
-import { useAppDispatch } from '@/stores/types';
-import { putUpdateTask } from '@/api/services/task';
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated';
+import { styles } from './style';
 
 interface ITaskItemProps {
-  item: TaskResponseModel | CategoryResponseModel;
+  item: TaskResponseModel;
   index: number;
-  onChangeCheckBox?: (isChecked: boolean) => void;
   onEdit?: () => void;
   onDelete?: () => void;
   style?: StyleProp<ViewStyle>;
 }
 
-faker.seed(50);
-
 const TaskItem: FC<ITaskItemProps> = ({
   item,
   index,
-  onChangeCheckBox,
   onEdit,
   onDelete,
   style,
 }) => {
   const dispatch = useAppDispatch();
-  const defaultValueCheckBox = item?.isChecked;
-  const checkBoxRef = useRef<CheckBoxRef>(null);
-  const [isCheck, setIsCheck] = useState(defaultValueCheckBox);
+  const defaultValueCheckBox = Boolean(item?.isChecked);
+  const [isCheck, setIsCheck] = useState<boolean>(defaultValueCheckBox);
 
   const DATA_DROP_DOWN = [
     {
@@ -60,17 +54,30 @@ const TaskItem: FC<ITaskItemProps> = ({
     },
   ];
 
-  const handleCheckBox = useCallback(
-    (value: boolean) => {
-      setIsCheck(value);
-      onChangeCheckBox?.(value);
-      dispatch(putUpdateTask({ id: item.id, isChecked: value }));
-    },
-    [isCheck],
-  );
+  const handleCheckBox = useCallback(async () => {
+    setIsCheck(prev => {
+      dispatch(putUpdateTask({ id: item.id, isChecked: !prev }));
+      return !prev;
+    });
+  }, [isCheck]);
 
   const DropDown = () => (
     <Icon type={'Feather'} name={'more-vertical'} size={moderateScale(16)} />
+  );
+
+  const MenuItem = useCallback(
+    () => (
+      <>
+        {DATA_DROP_DOWN.map((dropDownItem, dropDownIndex) => (
+          <MenuOption
+            key={`drop-down-${dropDownItem.key}${item.name}`}
+            onSelect={dropDownItem.onSelect}
+            text={dropDownItem.name}
+          />
+        ))}
+      </>
+    ),
+    [item],
   );
 
   return (
@@ -80,18 +87,7 @@ const TaskItem: FC<ITaskItemProps> = ({
       style={[styles.wrapperTaskifyItem, style]}>
       <View style={[AppStyles.rowVCenter]}>
         <View style={[styles.checkBox]}>
-          {item.image ? (
-            <Image
-              source={{ uri: item.image }}
-              customStyle={[{ marginRight: moderateScale(8), borderRadius: 8 }]}
-            />
-          ) : (
-            <CheckBox
-              isDefaultActive={defaultValueCheckBox}
-              ref={checkBoxRef}
-              onChange={handleCheckBox}
-            />
-          )}
+          <CheckBox isChecked={isCheck} onChange={handleCheckBox} />
         </View>
         <RegularText
           style={[
@@ -115,16 +111,9 @@ const TaskItem: FC<ITaskItemProps> = ({
               fontSize: moderateScale(12),
             },
           }}>
-          {DATA_DROP_DOWN.map((dropDownItem, dropDownIndex) => (
-            <MenuOption
-              key={`drop-down-${dropDownItem.key}`}
-              onSelect={dropDownItem.onSelect}
-              text={dropDownItem.name}
-            />
-          ))}
+          <MenuItem />
         </MenuOptions>
       </Menu>
-      {/* <View style={[styles.lineTaskDone]} /> */}
     </Animated.View>
   );
 };

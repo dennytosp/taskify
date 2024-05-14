@@ -144,6 +144,7 @@ export default {
       chooseCategory: 'Chọn danh mục',
       categoryImage: 'Ảnh danh mục',
       chooseCategoryImage: 'Chọn ảnh danh mục',
+      dataIsEmpty: 'Dữ liệu đang rỗng',
     },
     enterTaskify: {
       createTaskSubtitle: 'Vui lòng nhập việc cần làm để tạo mới',
