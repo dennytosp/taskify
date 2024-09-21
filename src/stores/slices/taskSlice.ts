@@ -22,27 +22,39 @@ const taskSlice = createSlice({
     onSetTask: (state, action: PayloadAction<TaskResponseModel[]>) => {
       state.task = action.payload || [];
     },
+    onUpdateTask: (state, action: PayloadAction<TaskResponseModel>) => {
+      const index = state.task.findIndex(item => item.id === action.payload.id);
+      if (index >= 0) {
+        state.task[index] = { ...state.task[index], ...action.payload };
+      }
+    },
+    // onUpdateTask: (
+    //   state,
+    //   action: PayloadAction<{ id: string; isChecked: boolean }>,
+    // ) => {
+    //   state.task = state.task.map(task =>
+    //     task.id === action.payload.id
+    //       ? { ...task, isChecked: action.payload.isChecked }
+    //       : task,
+    // );
+    // },
   },
-
   extraReducers: builder => {
     builder.addCase(getTasks.fulfilled, (state, action) => {
       state.task = action.payload || [];
-      state.completedTask = state.task.filter((item, index) => item.isChecked);
+      state.completedTask = state.task.filter(item => item.isChecked);
     });
     builder.addCase(postAddTask.fulfilled, (state, action) => {
-      state.task = [...state.task, ...[action.payload]];
+      state.task.push(action.payload);
     });
     builder.addCase(putUpdateTask.fulfilled, (state, action) => {
-      const findIndexTask = [...state.task].findIndex(
-        (item, index) => item.id === action.payload.id,
-      );
-      if (findIndexTask !== -1) {
-        state.task[findIndexTask] = action.payload;
+      const index = state.task.findIndex(item => item.id === action.payload.id);
+      if (index >= 0) {
+        state.task[index].isChecked = action.payload.isChecked;
       }
     });
     builder.addCase(deleteTask.fulfilled, (state, action) => {
-      const newTask = state.task.filter(item => item.id !== action.payload.id);
-      state.task = newTask;
+      state.task = state.task.filter(item => item.id !== action.payload.id);
     });
   },
 });

@@ -8,6 +8,7 @@ import { useAppDispatch } from '@/stores/types';
 import { appLoaderHolder } from '@/utils/holder';
 import { connectToRemoteDebugger } from '../utils/helper';
 import { isIos } from '@/utils/device';
+import { enableScreens } from 'react-native-screens';
 
 type InitializeAppType = {};
 
@@ -18,6 +19,8 @@ const InitializeApp = (props: InitializeAppType) => {
 
   const appState = useRef(AppState.currentState);
   const isDebugging = false;
+
+  enableScreens();
 
   useEffect(() => {
     if (isIos && __DEV__) {

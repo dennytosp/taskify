@@ -1,7 +1,13 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 
 import { deleteCategory, getCategories } from '@/api/services/category';
 import { CategoryResponseModel } from '@/api/types';
@@ -10,14 +16,21 @@ import CategoryItem from '@/components/Item/CategoryItem';
 import { RegularText } from '@/components/Text';
 import { useStateWhenMounted } from '@/hooks';
 import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
-import { getCategoryState } from '@/stores/slices/categorySlice';
+import {
+  categoryActions,
+  getCategoryState,
+} from '@/stores/slices/categorySlice';
 import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { AppStyles } from '@/styles';
 import { translate } from '@/translations/translate';
-import { convertToUnsignedString } from '@/utils/helper';
+import {
+  convertToUnsignedString,
+  onScrollBottomTabHandler,
+} from '@/utils/helper';
 import { moderateScale, moderateVerticalScale } from '@/utils/scale';
 import { debounce } from 'lodash';
 import { styles } from './style';
+import { PayloadAction } from '@reduxjs/toolkit';
 
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.BOTTOM_TAB_STACK>;
@@ -28,17 +41,9 @@ const Categories = () => {
   const dispatch = useAppDispatch();
 
   const { category } = useAppSelector(getCategoryState);
-  const [searchKey, setSearchKey] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
   const [isLoading, setIsLoading] = useStateWhenMounted(true);
-
-  const myCategories = useMemo(() => {
-    const keySearch = convertToUnsignedString(searchKey?.toUpperCase());
-    return category.filter(i => {
-      const taskName = convertToUnsignedString(i?.name?.toUpperCase());
-      return taskName?.includes(keySearch);
-    });
-  }, [searchKey, category]);
+  const currentCategory = useRef<CategoryResponseModel[]>([]);
 
   useEffect(() => {
     onGetAPIs();
@@ -48,6 +53,11 @@ const Categories = () => {
     if (category.length === 0) {
       await dispatch(getCategories());
     }
+    const categoryData = (await dispatch(getCategories())) as PayloadAction<
+      CategoryResponseModel[]
+    >;
+    currentCategory.current = categoryData.payload;
+
     setIsLoading(false);
   };
 
@@ -56,9 +66,20 @@ const Categories = () => {
     onSearch(text);
   }, []);
 
+  const findCategories = (key: string) => {
+    const keySearch = convertToUnsignedString(key?.toUpperCase());
+
+    const newCategories = currentCategory.current?.filter(i => {
+      const taskName = convertToUnsignedString(i?.name?.toUpperCase());
+      return taskName?.includes(keySearch);
+    });
+
+    dispatch(categoryActions.onSetCategories(newCategories));
+  };
+
   const onSearch = useCallback(
     debounce((text: string) => {
-      setSearchKey(text);
+      findCategories(text);
     }, 500),
     [],
   );
@@ -70,10 +91,8 @@ const Categories = () => {
     });
   };
 
-  const keyExtractor = useCallback(
-    (item: CategoryResponseModel, index: number) => `categories-tab-${item.id}`,
-    [],
-  );
+  const keyExtractor = (item: CategoryResponseModel, index: number) =>
+    `categories-tab-${item.id}-${index}`;
 
   const Item = ({
     item,
@@ -123,7 +142,9 @@ const Categories = () => {
           <TouchableOpacity
             onPress={() => {
               setSearchValue('');
-              setSearchKey('');
+              dispatch(
+                categoryActions.onSetCategories(currentCategory.current),
+              );
             }}>
             <Icon
               type={'Ionicons'}
@@ -138,7 +159,7 @@ const Categories = () => {
         <FlatList
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps={'handled'}
-          data={myCategories}
+          data={category}
           renderItem={Item}
           ItemSeparatorComponent={() => (
             <View style={[{ marginTop: moderateVerticalScale(8) }]} />
@@ -153,6 +174,7 @@ const Categories = () => {
           style={[{ marginTop: moderateScale(16) }]}
           contentContainerStyle={[{ paddingBottom: insets.bottom * 4 }]}
           keyExtractor={keyExtractor}
+          onScroll={onScrollBottomTabHandler}
         />
       </Indicator>
     </View>

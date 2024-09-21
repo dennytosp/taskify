@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import {
   deleteCategory,
@@ -8,6 +8,7 @@ import {
 } from '@/api/services/category';
 import { CategoryState } from '../types/category';
 import { RootState } from '../types/root';
+import { CategoryResponseModel } from '@/api/types';
 
 const initialCategoryState: CategoryState = {
   category: [],
@@ -16,7 +17,14 @@ const initialCategoryState: CategoryState = {
 const categorySlice = createSlice({
   name: 'category',
   initialState: initialCategoryState,
-  reducers: {},
+  reducers: {
+    onSetCategories: (
+      state,
+      action: PayloadAction<CategoryResponseModel[]>,
+    ) => {
+      state.category = action.payload || [];
+    },
+  },
 
   extraReducers: builder => {
     builder.addCase(getCategories.fulfilled, (state, action) => {

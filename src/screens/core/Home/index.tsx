@@ -1,9 +1,14 @@
-import moment from 'moment';
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
-import { useIsFocused, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import moment from 'moment';
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import {
+  Animated as Animation,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 import { deleteTask } from '@/api/services/task';
 import { getTasks } from '@/api/services/task/get-tasks';
@@ -12,12 +17,17 @@ import { Header, Icon, Indicator } from '@/components';
 import { TaskItem } from '@/components/Item';
 import { RegularText, SemiBoldText } from '@/components/Text';
 import { useStateWhenMounted } from '@/hooks';
-import { getTaskState } from '@/stores/slices';
+import { getTaskState, taskActions } from '@/stores/slices';
 import { useAppDispatch, useAppSelector } from '@/stores/types';
 import { AppStyles } from '@/styles';
 import { translate } from '@/translations/translate';
-import { convertToUnsignedString, getGreeting } from '@/utils/helper';
+import {
+  convertToUnsignedString,
+  getGreeting,
+  onScrollBottomTabHandler,
+} from '@/utils/helper';
 import { moderateScale, moderateVerticalScale } from '@/utils/scale';
+import { PayloadAction } from '@reduxjs/toolkit';
 import { debounce } from 'lodash';
 import { styles } from './style';
 
@@ -31,37 +41,42 @@ const Home = () => {
 
   const { task } = useAppSelector(getTaskState);
   const greeting = getGreeting('Mad Dinh');
-  const isFocused = useIsFocused();
 
-  const [searchKey, setSearchKey] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
   const [isLoading, setIsLoading] = useStateWhenMounted(true);
-
-  const myTasks = useMemo(() => {
-    const keySearch = convertToUnsignedString(searchKey?.toUpperCase());
-    return task.filter(i => {
-      const taskName = convertToUnsignedString(i?.name?.toUpperCase());
-      return taskName?.includes(keySearch);
-    });
-  }, [searchKey, task]);
+  const previousTasks = useRef<TaskResponseModel[]>([]);
 
   useEffect(() => {
     onGetAPIs();
   }, []);
 
   const onGetAPIs = async () => {
-    await dispatch(getTasks());
+    const taskData = (await dispatch(getTasks())) as PayloadAction<
+      TaskResponseModel[]
+    >;
+    previousTasks.current = taskData.payload;
     setIsLoading(false);
   };
 
-  const onChangeSearch = useCallback((text: string) => {
+  const onChangeSearch = (text: string) => {
     setSearchValue(text);
     onSearch(text);
-  }, []);
+  };
+
+  const findTasks = (key: string) => {
+    const keySearch = convertToUnsignedString(key?.toUpperCase());
+
+    const newTasks = previousTasks.current?.filter(i => {
+      const taskName = convertToUnsignedString(i?.name?.toUpperCase());
+      return taskName?.includes(keySearch);
+    });
+
+    dispatch(taskActions.onSetTask(newTasks));
+  };
 
   const onSearch = useCallback(
     debounce((text: string) => {
-      setSearchKey(text);
+      findTasks(text);
     }, 500),
     [],
   );
@@ -74,17 +89,15 @@ const Home = () => {
   };
 
   const keyExtractor = (item: TaskResponseModel, index: number) =>
-    `home-tab-${item.id}`;
+    `home-tab-${item.id}-${index}`;
 
-  const Item = ({
+  const renderItem = ({
     item,
     index,
   }: {
     item: TaskResponseModel;
     index: number;
   }) => {
-    console.log({ myTasks });
-
     const onEdit = () => {
       navigation.navigate(RoutesRootStack.MAIN_STACK, {
         screen: RoutesMainStack.ENTER_TASKIFY,
@@ -127,7 +140,7 @@ const Home = () => {
           <TouchableOpacity
             onPress={() => {
               setSearchValue('');
-              setSearchKey('');
+              dispatch(taskActions.onSetTask(previousTasks.current));
             }}>
             <Icon
               type={'Ionicons'}
@@ -139,12 +152,13 @@ const Home = () => {
       </View>
 
       <Indicator visible={isLoading}>
-        <FlatList
+        <Animation.FlatList
+          onScroll={onScrollBottomTabHandler}
+          scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps={'handled'}
-          data={myTasks}
-          // renderItem={({ item, index }) => <Item item={item} index={index} />}
-          renderItem={Item}
+          data={task}
+          extraData={task}
+          renderItem={renderItem}
           ItemSeparatorComponent={() => (
             <View style={[{ marginTop: moderateVerticalScale(8) }]} />
           )}

@@ -9,9 +9,10 @@ import {
 import { AnimatedBottomTabBar } from '@/components';
 import { Categories, Completed, Home, Profile } from '@/screens';
 import { translate } from '@/translations/translate';
-import { RoutesBottomTabStack } from '../routes';
+import { bottomTabHolder } from '@/utils/holder';
 import { CompositeScreenProps } from '@react-navigation/native';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
+import { RoutesBottomTabStack } from '../routes';
 
 export type BottomTabStackParamsList = {
   [RoutesBottomTabStack.HOME]: undefined;
@@ -32,7 +33,9 @@ const BottomTabStack = () => {
   return (
     <Tab.Navigator
       initialRouteName={RoutesBottomTabStack.HOME}
-      tabBar={props => <AnimatedBottomTabBar {...props} />}
+      tabBar={props => (
+        <AnimatedBottomTabBar ref={bottomTabHolder} {...props} />
+      )}
       screenOptions={{
         headerShown: false,
         tabBarBackground: () => (

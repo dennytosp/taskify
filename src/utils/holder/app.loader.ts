@@ -1,7 +1,7 @@
 import { createRef } from 'react';
-import { AppLoaderRef } from '@/components/Loader';
+import { ShowHideRef } from '@/types/ref';
 
-const appLoaderHolder = createRef<AppLoaderRef>();
+const appLoaderHolder = createRef<ShowHideRef>();
 
 const showAppLoader = () => {
   appLoaderHolder.current?.show();

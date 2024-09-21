@@ -1,7 +1,9 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React, { useMemo } from 'react';
+import React, { forwardRef, Ref, useImperativeHandle, useMemo } from 'react';
 import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
+  Extrapolation,
+  interpolate,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
@@ -11,7 +13,9 @@ import { Image } from '@/components';
 import { AppStyles } from '@/styles';
 import { COLORS, Icons } from '@/theme';
 import { translate } from '@/translations/translate';
+import { ShowHideRef } from '@/types';
 import { isIos } from '@/utils/device';
+import { showBottomTab } from '@/utils/holder';
 import {
   MetricsSizes,
   moderateScale,
@@ -19,163 +23,195 @@ import {
   width,
 } from '@/utils/scale';
 
-const AnimatedBottomTabBar = ({
-  state,
-  descriptors,
-  navigation,
-  insets,
-}: BottomTabBarProps) => {
-  const bottomSize = isIos ? insets.bottom : moderateVerticalScale(24);
-  const pinchGesture = true;
-  const isMaterial = false;
-  const tabBarWidth = width - (isMaterial ? 0 : 48) - moderateScale(32);
-  const tabBarItemWidth = tabBarWidth / state.routes.length;
-  const scaleValue = useSharedValue(1);
-  const opacityValue = useSharedValue(1);
+const AnimatedBottomTabBar = forwardRef(
+  (props: BottomTabBarProps, ref: Ref<ShowHideRef>) => {
+    const { state, descriptors, navigation, insets } = props;
 
-  const animatedContainerStyle = useAnimatedStyle(() => {
-    return {
-      transform: [
-        {
-          translateX: withTiming(
-            tabBarItemWidth * state.index +
-              (isMaterial ? MetricsSizes.regular : MetricsSizes.big),
-          ),
+    const scale = useSharedValue(1);
+    const opacity = useSharedValue(1);
+    const translateY = useSharedValue(0);
+    const opacityScroll = useSharedValue(1);
+
+    const bottomSize = isIos ? insets.bottom : moderateVerticalScale(24);
+    const pinchGesture = true;
+    const isMaterial = false;
+    const tabBarWidth = width - (isMaterial ? 0 : 48) - moderateScale(32);
+    const tabBarItemWidth = tabBarWidth / state.routes.length;
+
+    const animatedStyle = useAnimatedStyle(() => {
+      return {
+        transform: [
+          { translateY: withTiming(translateY.value, { duration: 300 }) },
+        ],
+        opacity: withTiming(opacityScroll.value, { duration: 300 }),
+      };
+    });
+
+    useImperativeHandle(
+      ref,
+      () => ({
+        show: () => {
+          translateY.value = 0;
+          opacityScroll.value = 1;
         },
-      ],
-    };
-  });
+        hide: () => {
+          translateY.value = insets.bottom + moderateScale(100);
+          opacityScroll.value = 0;
+        },
+      }),
+      [],
+    );
 
-  const animatedDefaultButtonStyle = useAnimatedStyle(() => {
-    return {
-      transform: [{ scale: scaleValue.value }],
-      opacity: opacityValue.value,
-    };
-  });
+    const animatedContainerStyle = useAnimatedStyle(() => {
+      return {
+        transform: [
+          {
+            translateX: withTiming(
+              tabBarItemWidth * state.index +
+                (isMaterial ? MetricsSizes.regular : MetricsSizes.big),
+            ),
+          },
+        ],
+      };
+    });
 
-  const TabItem = () => {
-    return (
-      <View
-        style={[
-          AppStyles.rowCenterBetween,
-          { justifyContent: 'space-evenly' },
-        ]}>
-        {state.routes.map((route, index) => {
-          const { options } = descriptors[route.key];
-          const label =
-            options.tabBarLabel !== undefined
-              ? options.tabBarLabel
-              : options.title !== undefined
-              ? options.title
-              : route.name;
+    const animatedDefaultButtonStyle = useAnimatedStyle(() => {
+      return {
+        transform: [{ scale: scale.value }],
+        opacity: opacity.value,
+      };
+    });
 
-          const isFocused = state.index === index;
-          const isLastIndex = Number(state.routes.length - 1) === index;
+    const TabItem = () => {
+      return (
+        <View
+          style={[
+            AppStyles.rowCenterBetween,
+            { justifyContent: 'space-evenly' },
+          ]}>
+          {state.routes.map((route, index) => {
+            const { options } = descriptors[route.key];
+            const label =
+              options.tabBarLabel !== undefined
+                ? options.tabBarLabel
+                : options.title !== undefined
+                ? options.title
+                : route.name;
 
-          const iconName = useMemo(() => {
-            switch (label) {
-              case translate('taskify.bottomTab.tab1'):
-                return Icons.home;
-              case translate('taskify.bottomTab.tab2'):
-                return Icons.wallet;
-              case translate('taskify.bottomTab.tab3'):
-                return Icons.categories;
-              case translate('taskify.bottomTab.tab4'):
-                return Icons.profile;
-              default:
-                return Icons.wallet;
-            }
-          }, [label]);
+            const isFocused = state.index === index;
+            const isLastIndex = Number(state.routes.length - 1) === index;
 
-          const onPress = () => {
-            const event = navigation.emit({
-              type: 'tabPress',
-              target: route.key,
-              canPreventDefault: true,
-            });
+            const iconName = useMemo(() => {
+              switch (label) {
+                case translate('taskify.bottomTab.tab1'):
+                  return Icons.home;
+                case translate('taskify.bottomTab.tab2'):
+                  return Icons.wallet;
+                case translate('taskify.bottomTab.tab3'):
+                  return Icons.categories;
+                case translate('taskify.bottomTab.tab4'):
+                  return Icons.profile;
+                default:
+                  return Icons.wallet;
+              }
+            }, [label]);
 
-            if (!isFocused && !event.defaultPrevented) {
-              navigation.navigate(route.name, route.params);
-            }
-          };
+            const onPress = () => {
+              const event = navigation.emit({
+                type: 'tabPress',
+                target: route.key,
+                canPreventDefault: true,
+              });
 
-          const onLongPress = () => {
-            navigation.emit({
-              type: 'tabLongPress',
-              target: route.key,
-            });
-          };
+              if (!isFocused && !event.defaultPrevented) {
+                navigation.navigate(route.name, route.params);
 
-          return (
-            <Pressable
-              key={'bottom-tab-' + route.key}
-              accessibilityRole="button"
-              accessibilityState={isFocused ? { selected: true } : {}}
-              accessibilityLabel={options.tabBarAccessibilityLabel}
-              testID={options.tabBarTestID}
-              onPress={onPress}
-              onLongPress={onLongPress}
-              style={[
-                styles.button,
-                index === 0 && { marginLeft: MetricsSizes.regular },
-                isLastIndex && { marginRight: MetricsSizes.regular },
-              ]}>
-              <Animated.View
-                style={[animatedDefaultButtonStyle, AppStyles.columnCenter]}>
-                <Image
-                  source={iconName}
-                  imageType={'large'}
-                  tintColor={isFocused ? COLORS.white : '#8EDFEB'}
-                />
+                setTimeout(() => showBottomTab(), 500);
+              }
+            };
 
-                {/* <SemiBoldText
+            const onLongPress = () => {
+              navigation.emit({
+                type: 'tabLongPress',
+                target: route.key,
+              });
+            };
+
+            return (
+              <Pressable
+                key={'bottom-tab-' + route.key}
+                accessibilityRole="button"
+                accessibilityState={isFocused ? { selected: true } : {}}
+                accessibilityLabel={options.tabBarAccessibilityLabel}
+                testID={options.tabBarTestID}
+                onPress={onPress}
+                onLongPress={onLongPress}
+                style={[
+                  styles.button,
+                  index === 0 && { marginLeft: MetricsSizes.regular },
+                  isLastIndex && { marginRight: MetricsSizes.regular },
+                ]}>
+                <Animated.View
+                  style={[animatedDefaultButtonStyle, AppStyles.columnCenter]}>
+                  <Image
+                    source={iconName}
+                    imageType={'large'}
+                    tintColor={isFocused ? COLORS.white : '#8EDFEB'}
+                  />
+
+                  {/* <SemiBoldText
                   style={[
                     styles.textDefaultButton,
                     { color: isFocused ? COLORS.primary : COLOR_DEFAULT },
                   ]}>
                   {label}
                 </SemiBoldText> */}
-              </Animated.View>
-            </Pressable>
-          );
-        })}
-      </View>
-    );
-  };
+                </Animated.View>
+              </Pressable>
+            );
+          })}
+        </View>
+      );
+    };
 
-  return (
-    <View
-      style={[
-        isMaterial ? styles.containerMaterial : styles.container,
-        {
-          bottom: isMaterial ? 0 : bottomSize,
-          paddingVertical: isMaterial ? bottomSize : moderateVerticalScale(24),
-          width: isMaterial ? '100%' : width - moderateScale(48),
-        },
-      ]}>
-      {pinchGesture && (
-        <Animated.View
-          style={[
-            styles.tabContainer,
-            { justifyContent: isMaterial ? 'center' : 'flex-end' },
-            animatedContainerStyle,
-          ]}>
-          <View
+    return (
+      <Animated.View
+        style={[
+          isMaterial ? styles.containerMaterial : styles.container,
+          {
+            bottom: isMaterial ? 0 : bottomSize,
+            paddingVertical: isMaterial
+              ? bottomSize
+              : moderateVerticalScale(24),
+            width: isMaterial ? '100%' : width - moderateScale(48),
+            // transform: [{ translateY }],
+          },
+          animatedStyle,
+        ]}>
+        {pinchGesture && (
+          <Animated.View
             style={[
-              isMaterial ? styles.tabItemMaterial : styles.tabItem,
-              {
-                backgroundColor: COLORS.primary,
-                width: isMaterial ? tabBarItemWidth : moderateScale(48),
-              },
-            ]}
-          />
-        </Animated.View>
-      )}
+              styles.tabContainer,
+              { justifyContent: isMaterial ? 'center' : 'flex-end' },
+              animatedContainerStyle,
+            ]}>
+            <View
+              style={[
+                isMaterial ? styles.tabItemMaterial : styles.tabItem,
+                {
+                  backgroundColor: COLORS.primary,
+                  width: isMaterial ? tabBarItemWidth : moderateScale(48),
+                },
+              ]}
+            />
+          </Animated.View>
+        )}
 
-      <TabItem />
-    </View>
-  );
-};
+        <TabItem />
+      </Animated.View>
+    );
+  },
+);
 
 const styles = StyleSheet.create({
   container: {

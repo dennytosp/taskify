@@ -11,21 +11,17 @@ import { WaveIndicator } from 'react-native-indicators';
 
 import { AppStyles } from '@/styles';
 import { COLORS } from '@/theme';
+import { ShowHideRef } from '@/types';
 import { isIos } from '@/utils/device';
 import { moderateScale } from '@/utils/scale';
 import { styles } from './style';
-
-export interface AppLoaderRef {
-  show: () => void;
-  hide: () => void;
-}
 
 interface AppLoaderProps {
   isShowLoader?: boolean;
 }
 
 const AppLoaderComponent = forwardRef(
-  (props: AppLoaderProps, ref: Ref<AppLoaderRef>) => {
+  (props: AppLoaderProps, ref: Ref<ShowHideRef>) => {
     const { isShowLoader = false } = props;
     const [visible, setVisible] = useState<boolean>(isShowLoader);
 

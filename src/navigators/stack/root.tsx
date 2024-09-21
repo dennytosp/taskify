@@ -1,10 +1,10 @@
 import React from 'react';
-import { NavigatorScreenParams } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigatorScreenParams } from '@react-navigation/native';
 
 import { getAppState } from '@/stores/slices';
 import { useAppSelector } from '@/stores/types';
-import { AuthStack, BottomTabStack, OtherStack } from '.';
+import { AuthStack, BottomTabStack, OtherStack } from '../stack';
 import { RoutesRootStack } from '../routes';
 import { AuthStackParamsList } from './auth';
 import MainStack, { MainStackParamsList } from './main';
@@ -33,22 +33,17 @@ const RootStack = () => {
     : RoutesRootStack.BOTTOM_TAB_STACK;
 
   return (
-    <>
-      <Root.Navigator
-        initialRouteName={routeName}
-        screenOptions={{ headerShown: false, animation: 'fade' }}>
-        <Root.Screen
-          name={RoutesRootStack.BOTTOM_TAB_STACK}
-          component={BottomTabStack}
-        />
-        <Root.Screen name={RoutesRootStack.AUTH_STACK} component={AuthStack} />
-        <Root.Screen name={RoutesRootStack.MAIN_STACK} component={MainStack} />
-        <Root.Screen
-          name={RoutesRootStack.OTHER_STACK}
-          component={OtherStack}
-        />
-      </Root.Navigator>
-    </>
+    <Root.Navigator
+      initialRouteName={routeName}
+      screenOptions={{ headerShown: false, animation: 'fade' }}>
+      <Root.Screen
+        name={RoutesRootStack.BOTTOM_TAB_STACK}
+        component={BottomTabStack}
+      />
+      <Root.Screen name={RoutesRootStack.AUTH_STACK} component={AuthStack} />
+      <Root.Screen name={RoutesRootStack.MAIN_STACK} component={MainStack} />
+      <Root.Screen name={RoutesRootStack.OTHER_STACK} component={OtherStack} />
+    </Root.Navigator>
   );
 };
 export default RootStack;
