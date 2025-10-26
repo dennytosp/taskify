@@ -1,14 +1,12 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { AppState, StatusBar } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import React, { useEffect, useRef, useState } from "react";
+import { AppState, StatusBar } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { AppLoader } from '@/components';
-import { Splash } from '@/screens/others';
-import { useAppDispatch } from '@/stores/types';
-import { appLoaderHolder } from '@/utils/holder';
-import { connectToRemoteDebugger } from '../utils/helper';
-import { isIos } from '@/utils/device';
-import { enableScreens } from 'react-native-screens';
+import { AppLoader } from "@/components";
+import { Splash } from "@/screens/others";
+import { useAppDispatch } from "@/stores/types";
+import { appLoaderHolder } from "@/utils/holder";
+import { enableScreens } from "react-native-screens";
 
 type InitializeAppType = {};
 
@@ -18,21 +16,13 @@ const InitializeApp = (props: InitializeAppType) => {
   const [visibleBootSplash, setVisibleBootSplash] = useState(true);
 
   const appState = useRef(AppState.currentState);
-  const isDebugging = false;
 
   enableScreens();
-
   useEffect(() => {
-    if (isIos && __DEV__) {
-      connectToRemoteDebugger(isDebugging);
-    }
-  }, []);
-
-  useEffect(() => {
-    const subscription = AppState.addEventListener('change', nextAppState => {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
       if (
         appState.current.match(/inactive|background/) &&
-        nextAppState === 'active'
+        nextAppState === "active"
       ) {
         onAppState();
       }
@@ -52,10 +42,10 @@ const InitializeApp = (props: InitializeAppType) => {
     <>
       <StatusBar
         animated={true}
-        barStyle={'dark-content'}
+        barStyle={"dark-content"}
         translucent={true}
         backgroundColor="transparent"
-        showHideTransition={'fade'}
+        showHideTransition={"fade"}
       />
 
       {visibleBootSplash && <Splash onAnimationEnd={onBootSplashCompleted} />}

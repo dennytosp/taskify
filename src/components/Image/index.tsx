@@ -1,25 +1,38 @@
-import React, { memo } from 'react';
-import equals from 'react-fast-compare';
-import { StyleProp } from 'react-native';
-import FastImage, { FastImageProps, ImageStyle } from 'react-native-fast-image';
-import { MetricVariables } from '@/theme/theme';
-import { MetricsSizes } from '@/utils/scale';
+import { MetricVariables } from "@/theme/theme";
+import { MetricsSizes } from "@/utils/scale";
+import {
+  Image as ExpoImage,
+  ImageProps as ExpoImageProps,
+  ImageContentFit,
+  ImageStyle,
+} from "expo-image";
+import React from "react";
+import { StyleProp } from "react-native";
 
-interface ImageProps extends FastImageProps {
+interface ImageProps extends Omit<ExpoImageProps, "resizeMode"> {
   imageType?: MetricVariables;
   customStyle?: StyleProp<ImageStyle>;
+  resizeMode?: ImageContentFit;
 }
 
-export const Image = memo((props: ImageProps) => {
-  const { imageType, customStyle } = props;
-  const imageSize = imageType ?? 'icon';
+export const Image = (props: ImageProps) => {
+  const {
+    imageType,
+    customStyle,
+    resizeMode = "contain",
+    cachePolicy = "disk",
+    transition = 200,
+    ...rest
+  } = props;
+  const imageSize = imageType ?? "icon";
 
   return (
-    <FastImage
+    <ExpoImage
       style={[{ width: MetricsSizes[imageSize], aspectRatio: 1 }, customStyle]}
-      resizeMode={'contain'}
-      {...props}>
-      {props.children}
-    </FastImage>
+      cachePolicy={cachePolicy}
+      transition={transition}
+      contentFit={resizeMode}
+      {...rest}
+    />
   );
-}, equals);
+};

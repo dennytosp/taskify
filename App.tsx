@@ -1,15 +1,15 @@
-import 'react-i18next';
-import 'react-native-gesture-handler';
-/* Import normal */
-import React from 'react';
-import { I18nextProvider } from 'react-i18next';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { I18nextProvider } from "react-i18next";
+import "react-native-gesture-handler";
 
-import RootNavigator from '@/navigators/RootNavigator';
-import { persistor, store } from '@/stores';
-import i18n from '@/translations/i18n';
+/* Import normal */
+import React from "react";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
+import RootNavigator from "@/navigators/RootNavigator";
+import { persistor, store } from "@/stores";
+import i18n from "@/translations/i18n";
 
 if (!__DEV__) {
   console.log = () => {};

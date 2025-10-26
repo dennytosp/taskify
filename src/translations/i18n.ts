@@ -1,16 +1,15 @@
-import { initReactI18next } from 'react-i18next';
-import * as RNLocalize from 'react-native-localize';
-import i18n, { LanguageDetectorAsyncModule } from 'i18next';
+import i18n, { LanguageDetectorAsyncModule } from "i18next";
+import { initReactI18next } from "react-i18next";
+import * as RNLocalize from "react-native-localize";
 
-import { store } from '@/stores';
-import { LanguageType } from '@/types';
-import { getLanguageAsync, setLanguageAsync } from '@/utils/storage';
-import * as resources from './resources';
+import { LanguageType } from "@/types";
+import { getLanguageAsync, setLanguageAsync } from "@/utils/storage";
+import * as resources from "./resources";
 
-const lng = store.getState().app.appLanguage;
+const lng = "en";
 
 const onDetectLanguage = async (
-  callback: (lng: string | readonly string[] | undefined) => void | undefined,
+  callback: (lng: string | readonly string[] | undefined) => void | undefined
 ) => {
   try {
     const locales = RNLocalize.getLocales();
@@ -27,17 +26,17 @@ const onDetectLanguage = async (
       return callback(LanguageType.en);
     }
   } catch (error) {
-    console.log('Error reading language', error);
+    console.log("Error reading language", error);
   }
 };
 
 const languageDetectorPlugin: LanguageDetectorAsyncModule = {
-  type: 'languageDetector',
+  type: "languageDetector",
   async: true,
   init: () => {},
   // detect: async function (callback: (lang: string) => void) {
   detect: (
-    callback: (lang: string | readonly string[] | undefined) => void,
+    callback: (lang: string | readonly string[] | undefined) => void
   ) => {
     onDetectLanguage(callback);
   },
@@ -50,7 +49,7 @@ i18n
   .use(initReactI18next)
   .use(languageDetectorPlugin)
   .init({
-    compatibilityJSON: 'v3',
+    compatibilityJSON: "v4",
     resources: {
       ...Object.entries(resources).reduce(
         (acc, [key, value]) => ({
@@ -59,11 +58,11 @@ i18n
             translation: value,
           },
         }),
-        {},
+        {}
       ),
     },
     lng,
-    fallbackLng: 'en',
+    fallbackLng: "en",
     interpolation: {
       escapeValue: false, // not needed for react as it escapes by default
     },

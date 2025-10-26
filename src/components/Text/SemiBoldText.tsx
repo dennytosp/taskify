@@ -1,14 +1,15 @@
-import React from 'react';
-import { StyleSheet, Text, TextProps } from 'react-native';
-import { COLORS, FONTS } from '@/theme';
-import { moderateScale } from '@/utils/scale';
+import { COLORS, FONTS } from "@/theme";
+import { moderateScale } from "@/utils/scale";
+import React from "react";
+import { StyleSheet, Text, TextProps } from "react-native";
 
 const SemiBoldText = (props: TextProps) => {
   return (
     <Text
       allowFontScaling={false}
       {...props}
-      style={[styles.text, { color: COLORS.text }, props.style]}>
+      style={[styles.text, { color: COLORS.text }, props.style]}
+    >
       {props.children}
     </Text>
   );

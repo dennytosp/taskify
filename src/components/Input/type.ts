@@ -1,11 +1,11 @@
+import { ImageProps } from "expo-image";
 import {
   ImageRequireSource,
   StyleProp,
   TextInputProps,
   TextStyle,
   ViewStyle,
-} from 'react-native';
-import { Source } from 'react-native-fast-image';
+} from "react-native";
 
 interface InputProps {
   title?: string;
@@ -20,8 +20,8 @@ interface InputProps {
   isPickerImage?: boolean;
   isUsingModal?: boolean;
   isPassword?: boolean;
-  leftIcon?: Source | ImageRequireSource;
-  rightIcon?: Source | ImageRequireSource;
+  leftIcon?: ImageProps["source"] | ImageRequireSource;
+  rightIcon?: ImageProps["source"] | ImageRequireSource;
   hintError?: string;
   hintErrorEmpty?: string;
   handleChangeText?: (text: string) => void;
@@ -30,7 +30,7 @@ interface InputProps {
   onPressInput?: () => void;
   onPressLeftInput?: () => void;
   onPressRightInput?: () => void;
-  renderCustom?: () => JSX.Element;
+  renderCustom?: () => React.ReactNode;
 }
 
 interface InputRef {

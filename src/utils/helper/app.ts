@@ -1,15 +1,12 @@
-/* @ts-ignore  */
-import NativeDevSettings from 'react-native/Libraries/NativeModules/specs/NativeDevSettings';
-/* */
-import { get as customGet, truncate } from 'lodash';
+import { get as customGet, truncate } from "lodash";
 
 const get = (
   val: object,
   path: string[] = [],
-  defaultValue: any = undefined,
+  defaultValue: any = undefined
 ) => {
   const result = customGet(val, path, defaultValue);
-  if (typeof result === 'object' && !result) {
+  if (typeof result === "object" && !result) {
     return defaultValue;
   }
 
@@ -29,7 +26,7 @@ const debounce = (calLback: (...args: any) => void, delay: number) => {
 
 const mockArray = () => {
   let randomArray = [];
-  for (var i = 0; i < 25; i++) {
+  for (let i = 0; i < 25; i++) {
     randomArray.push(Math.floor(Math.random() * 101));
   }
 
@@ -39,22 +36,18 @@ const mockArray = () => {
 const truncateText = (text: string, maxWords?: number, separator?: string) => {
   const truncatedText = truncate(text, {
     length: maxWords || 100,
-    separator: separator || '...',
+    separator: separator || "...",
   });
   return truncatedText;
 };
 
 const convertToUnsignedString = (str: string): string => {
-  return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+  return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
 };
 
-const connectToRemoteDebugger = (isDebugging: boolean) => {
-  NativeDevSettings.setIsDebuggingRemotely(isDebugging);
-};
-
-const filterUniqueArray = (arr: Array<any>, key: string) => {
+const filterUniqueArray = (arr: any[], key: string) => {
   const uniqueCategory = arr.filter((item, index, self) => {
-    const findIndexObject = self.findIndex(obj => obj[key] === item[key]);
+    const findIndexObject = self.findIndex((obj) => obj[key] === item[key]);
     return findIndexObject === index;
   });
 
@@ -62,7 +55,6 @@ const filterUniqueArray = (arr: Array<any>, key: string) => {
 };
 
 export {
-  connectToRemoteDebugger,
   convertToUnsignedString,
   debounce,
   filterUniqueArray,

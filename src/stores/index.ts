@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
   FLUSH,
   PAUSE,
@@ -7,12 +9,10 @@ import {
   REHYDRATE,
   persistReducer,
   persistStore,
-} from 'redux-persist';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+} from "redux-persist";
 
-import { appReducer, authReducer, taskReducer } from './slices';
-import { categoryReducer } from './slices/categorySlice';
+import { appReducer, authReducer, taskReducer } from "./slices";
+import { categoryReducer } from "./slices/categorySlice";
 
 const reducers = combineReducers({
   app: appReducer,
@@ -22,16 +22,16 @@ const reducers = combineReducers({
 });
 
 const persistConfig = {
-  key: 'root',
+  key: "root",
   storage: AsyncStorage,
-  whitelist: ['app'],
+  whitelist: ["app"],
 };
 
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
   reducer: persistedReducer,
-  middleware: getDefaultMiddleware => {
+  middleware: (getDefaultMiddleware) => {
     const middlewares = getDefaultMiddleware({
       immutableCheck: false,
       serializableCheck: {

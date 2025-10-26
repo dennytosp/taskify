@@ -1,21 +1,11 @@
 import React, {
-  Ref,
-  forwardRef,
-  memo,
-  useCallback,
-  useEffect,
-  useImperativeHandle,
-  useRef,
-  useState,
+  useEffect
 } from 'react';
-import equals from 'react-fast-compare';
 import { StyleProp, TouchableOpacity, View, ViewStyle } from 'react-native';
 
 import { AppStyles } from '@/styles';
 import { COLORS, Icons } from '@/theme';
 import { MetricsSizes } from '@/utils/scale';
-import { Image } from '../Image';
-import { styles } from './styles';
 import Animated, {
   Extrapolation,
   interpolate,
@@ -24,12 +14,14 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated';
+import { Image } from '../Image';
+import { styles } from './styles';
 
 interface Props {
   disable?: boolean;
   value?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
-  renderCustom?: () => JSX.Element;
+  renderCustom?: () => React.ReactNode;
   onChange?: () => void;
 }
 

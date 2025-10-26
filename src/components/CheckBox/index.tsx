@@ -1,22 +1,22 @@
-import React, { memo, useCallback, useEffect, useMemo, useRef } from 'react';
+import { AppStyles } from "@/styles";
+import { COLORS, Icons } from "@/theme";
+import { MetricsSizes } from "@/utils/scale";
+import React, { memo, useCallback, useEffect, useMemo, useRef } from "react";
 import {
   Animated,
   StyleProp,
   TouchableOpacity,
   View,
   ViewStyle,
-} from 'react-native';
-import { AppStyles } from '@/styles';
-import { COLORS, Icons } from '@/theme';
-import { MetricsSizes } from '@/utils/scale';
-import { Image } from '../Image';
-import { styles } from './styles';
+} from "react-native";
+import { Image } from "../Image";
+import { styles } from "./styles";
 
 interface Props {
   disable?: boolean;
   value?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
-  renderCustom?: () => JSX.Element;
+  renderCustom?: () => React.ReactNode;
   onChange?: () => void;
 }
 
@@ -47,20 +47,20 @@ const CheckBox = ({
       backgroundColor: focusedAnim.interpolate({
         inputRange: [0, 1],
         outputRange: [COLORS.gray300, COLORS.text],
-        extrapolate: 'clamp',
+        extrapolate: "clamp",
       }),
       scale: focusedAnim.interpolate({
         inputRange: [0, 1],
         outputRange: [0, 1],
-        extrapolate: 'clamp',
+        extrapolate: "clamp",
       }),
       opacity: focusedAnim.interpolate({
         inputRange: [0, MetricsSizes.large],
         outputRange: [disable ? 0.25 : 1, 0],
-        extrapolate: 'clamp',
+        extrapolate: "clamp",
       }),
     }),
-    [focusedAnim],
+    [focusedAnim]
   );
 
   return (
@@ -72,19 +72,22 @@ const CheckBox = ({
             backgroundColor: animatedStyles.backgroundColor,
             opacity: animatedStyles.opacity,
           },
-        ]}>
+        ]}
+      >
         <TouchableOpacity
           disabled={disable}
           activeOpacity={1}
           onPress={onPress}
-          style={[AppStyles.fill, AppStyles.columnCenter]}>
+          style={[AppStyles.fill, AppStyles.columnCenter]}
+        >
           <Animated.View
             style={{
               transform: [
                 { scaleX: animatedStyles.scale },
                 { scaleY: animatedStyles.scale },
               ],
-            }}>
+            }}
+          >
             <Image source={Icons.tick} style={styles.icon} />
           </Animated.View>
         </TouchableOpacity>
