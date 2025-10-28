@@ -77,7 +77,7 @@ export default (config: ExpoConfig): ExpoConfig => ({
     "expo-router",
     "@react-native-firebase/app",
     "@react-native-firebase/auth",
-    ["react-native-bootsplash", { assetsDir: "assets/bootsplash" }],
+    ["react-native-bootsplash", { assetsDir: "./assets/bootsplash" }],
     [
       "expo-build-properties",
       {
