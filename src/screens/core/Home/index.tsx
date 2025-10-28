@@ -1,48 +1,48 @@
-import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
-import { useNavigation } from '@react-navigation/native';
-import moment from 'moment';
-import React, { memo, useCallback, useEffect, useRef, useState } from 'react';
+import { RoutesMainStack, RoutesRootStack } from "@/navigators/routes";
+import { useNavigation } from "@react-navigation/native";
+import moment from "moment";
+import React, { memo, useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated as Animation,
   TextInput,
   TouchableOpacity,
   View,
-} from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+} from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { deleteTask } from '@/api/services/task';
-import { getTasks } from '@/api/services/task/get-tasks';
-import { TaskResponseModel } from '@/api/types';
-import { Header, Icon, Indicator } from '@/components';
-import { TaskItem } from '@/components/Item';
-import { RegularText, SemiBoldText } from '@/components/Text';
-import { useStateWhenMounted } from '@/hooks';
-import { getTaskState, taskActions } from '@/stores/slices';
-import { useAppDispatch, useAppSelector } from '@/stores/types';
-import { AppStyles } from '@/styles';
-import { translate } from '@/translations/translate';
+import { deleteTask } from "@/api/services/task";
+import { getTasks } from "@/api/services/task/get-tasks";
+import { TaskResponseModel } from "@/api/types";
+import { Header, Icon, Indicator } from "@/components";
+import { TaskItem } from "@/components/Item";
+import { RegularText, SemiBoldText } from "@/components/Text";
+import { useStateWhenMounted } from "@/hooks";
+import { getTaskState, taskActions } from "@/stores/slices";
+import { useAppDispatch, useAppSelector } from "@/stores/types";
+import { AppStyles } from "@/styles";
+import { translate } from "@/translations/translate";
 import {
   convertToUnsignedString,
   getGreeting,
   onScrollBottomTabHandler,
-} from '@/utils/helper';
-import { moderateScale, moderateVerticalScale } from '@/utils/scale';
-import { PayloadAction } from '@reduxjs/toolkit';
-import { debounce } from 'lodash';
-import { styles } from './style';
+} from "@/utils/helper";
+import { moderateScale, moderateVerticalScale } from "@/utils/scale";
+import { PayloadAction } from "@reduxjs/toolkit";
+import { debounce } from "lodash";
+import { styles } from "./style";
 
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.BOTTOM_TAB_STACK>;
 
 const Home = () => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation<NavigationProps['navigation']>();
+  const navigation = useNavigation<NavigationProps["navigation"]>();
   const dispatch = useAppDispatch();
 
   const { task } = useAppSelector(getTaskState);
-  const greeting = getGreeting('Mad Dinh');
+  const greeting = getGreeting("Mad Dinh");
 
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
   const [isLoading, setIsLoading] = useStateWhenMounted(true);
   const previousTasks = useRef<TaskResponseModel[]>([]);
 
@@ -66,7 +66,7 @@ const Home = () => {
   const findTasks = (key: string) => {
     const keySearch = convertToUnsignedString(key?.toUpperCase());
 
-    const newTasks = previousTasks.current?.filter(i => {
+    const newTasks = previousTasks.current?.filter((i) => {
       const taskName = convertToUnsignedString(i?.name?.toUpperCase());
       return taskName?.includes(keySearch);
     });
@@ -78,7 +78,7 @@ const Home = () => {
     debounce((text: string) => {
       findTasks(text);
     }, 500),
-    [],
+    []
   );
 
   const onCreateTask = () => {
@@ -123,8 +123,8 @@ const Home = () => {
         onPressRight={onCreateTask}
       />
       <SemiBoldText style={[styles.textCurrentTime]}>
-        {`${translate('taskify.home.itsTime', {
-          time: moment().format('dddd, MMMM D YYYY'),
+        {`${translate("taskify.home.itsTime", {
+          time: moment().format("dddd, MMMM D YYYY"),
           countTasks: task.length,
         })}`}
       </SemiBoldText>
@@ -132,19 +132,20 @@ const Home = () => {
       <View style={[styles.wrapperSearchInput]}>
         <TextInput
           style={[styles.searchInput]}
-          placeholder={translate('taskify.home.searchPlaceHolder')}
+          placeholder={translate("taskify.home.searchPlaceHolder")}
           onChangeText={onChangeSearch}
           value={searchValue}
         />
         {searchValue.length > 0 && (
           <TouchableOpacity
             onPress={() => {
-              setSearchValue('');
+              setSearchValue("");
               dispatch(taskActions.onSetTask(previousTasks.current));
-            }}>
+            }}
+          >
             <Icon
-              type={'Ionicons'}
-              name={'close-outline'}
+              type={"Ionicons"}
+              name={"close-outline"}
               size={moderateScale(16)}
             />
           </TouchableOpacity>
@@ -165,7 +166,7 @@ const Home = () => {
           ListEmptyComponent={() => (
             <View style={[AppStyles.columnCenter]}>
               <RegularText style={[{ fontSize: 14 }]}>
-                {translate('taskify.common.dataIsEmpty')}
+                {translate("taskify.common.dataIsEmpty")}
               </RegularText>
             </View>
           )}
