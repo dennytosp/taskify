@@ -1,13 +1,14 @@
 import { RoutesMainStack, RoutesRootStack } from "@/navigators/routes";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated as Animation,
   TextInput,
   TouchableOpacity,
   View,
 } from "react-native";
+import { useMotionify } from "react-native-motionify";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import { deleteTask } from "@/api/services/task";
@@ -21,11 +22,7 @@ import { getTaskState, taskActions } from "@/stores/slices";
 import { useAppDispatch, useAppSelector } from "@/stores/types";
 import { AppStyles } from "@/styles";
 import { translate } from "@/translations/translate";
-import {
-  convertToUnsignedString,
-  getGreeting,
-  onScrollBottomTabHandler,
-} from "@/utils/helper";
+import { convertToUnsignedString, getGreeting } from "@/utils/helper";
 import { moderateScale, moderateVerticalScale } from "@/utils/scale";
 import { PayloadAction } from "@reduxjs/toolkit";
 import { debounce } from "lodash";
@@ -42,26 +39,23 @@ const Home = () => {
   const { task } = useAppSelector(getTaskState);
   const greeting = getGreeting("Mad Dinh");
 
+  const { onScroll } = useMotionify();
+
   const [searchValue, setSearchValue] = useState<string>("");
   const [isLoading, setIsLoading] = useStateWhenMounted(true);
   const previousTasks = useRef<TaskResponseModel[]>([]);
 
-  useEffect(() => {
-    onGetAPIs();
-  }, []);
-
-  const onGetAPIs = async () => {
+  const onGetAPIs = useCallback(async () => {
     const taskData = (await dispatch(getTasks())) as PayloadAction<
       TaskResponseModel[]
     >;
     previousTasks.current = taskData.payload;
     setIsLoading(false);
-  };
+  }, [dispatch, setIsLoading]);
 
-  const onChangeSearch = (text: string) => {
-    setSearchValue(text);
-    onSearch(text);
-  };
+  useEffect(() => {
+    onGetAPIs();
+  }, [onGetAPIs]);
 
   const findTasks = (key: string) => {
     const keySearch = convertToUnsignedString(key?.toUpperCase());
@@ -78,8 +72,13 @@ const Home = () => {
     debounce((text: string) => {
       findTasks(text);
     }, 500),
-    []
+    [dispatch]
   );
+
+  const onChangeSearch = (text: string) => {
+    setSearchValue(text);
+    onSearch(text);
+  };
 
   const onCreateTask = () => {
     navigation.navigate(RoutesRootStack.MAIN_STACK, {
@@ -154,7 +153,7 @@ const Home = () => {
 
       <Indicator visible={isLoading}>
         <Animation.FlatList
-          onScroll={onScrollBottomTabHandler}
+          onScroll={onScroll}
           scrollEventThrottle={16}
           showsVerticalScrollIndicator={false}
           data={task}
@@ -171,7 +170,9 @@ const Home = () => {
             </View>
           )}
           style={[{ marginTop: moderateScale(16) }]}
-          contentContainerStyle={[{ paddingBottom: insets.bottom * 4 }]}
+          contentContainerStyle={[
+            { paddingBottom: insets.bottom + moderateVerticalScale(16) },
+          ]}
           keyExtractor={keyExtractor}
         />
       </Indicator>

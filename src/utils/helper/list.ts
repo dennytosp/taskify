@@ -1,10 +1,9 @@
-import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
-import { showBottomTab, hideBottomTab } from '@/utils/holder/bottom-tab.holder';
+import { NativeScrollEvent, NativeSyntheticEvent } from "react-native";
 
 let offset = 0;
 
 const onScrollBottomTabHandler = (
-  event: NativeSyntheticEvent<NativeScrollEvent>,
+  event: NativeSyntheticEvent<NativeScrollEvent>
 ) => {
   const currentOffset = event.nativeEvent.contentOffset.y;
   const heightSize = event.nativeEvent.contentSize.height;
@@ -20,9 +19,9 @@ const onScrollBottomTabHandler = (
   }
 
   if (dif < 0) {
-    showBottomTab();
+    // showBottomTab();
   } else {
-    hideBottomTab();
+    // hideBottomTab();
   }
 
   offset = currentOffset;

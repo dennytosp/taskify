@@ -1,39 +1,43 @@
-import { RoutesMainStack, RoutesRootStack } from '@/navigators/routes';
-import { useNavigation } from '@react-navigation/native';
-import React, { useCallback, useState } from 'react';
-import { FlatList, TextInput, TouchableOpacity, View } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { RoutesMainStack, RoutesRootStack } from "@/navigators/routes";
+import { useNavigation } from "@react-navigation/native";
+import React, { useCallback, useState } from "react";
+import { FlatList, TextInput, TouchableOpacity, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-import { deleteTask } from '@/api/services/task';
-import { TaskResponseModel } from '@/api/types';
-import { Header, Icon, Indicator } from '@/components';
-import { TaskItem } from '@/components/Item';
-import { RegularText } from '@/components/Text';
-import { getTaskState } from '@/stores/slices';
-import { useAppDispatch, useAppSelector } from '@/stores/types';
-import { AppStyles } from '@/styles';
-import { translate } from '@/translations/translate';
-import { convertToUnsignedString } from '@/utils/helper';
-import { moderateScale, moderateVerticalScale } from '@/utils/scale';
-import { styles } from './style';
+import { deleteTask } from "@/api/services/task";
+import { TaskResponseModel } from "@/api/types";
+import { Header, Icon, Indicator } from "@/components";
+import { TaskItem } from "@/components/Item";
+import { RegularText } from "@/components/Text";
+import { getTaskState } from "@/stores/slices";
+import { useAppDispatch, useAppSelector } from "@/stores/types";
+import { AppStyles } from "@/styles";
+import { translate } from "@/translations/translate";
+import { convertToUnsignedString } from "@/utils/helper";
+import { moderateScale, moderateVerticalScale } from "@/utils/scale";
+import { useMotionify } from "react-native-motionify";
+import { styles } from "./style";
 
 type NavigationProps =
   ReactNavigation.RootStackScreenProps<RoutesRootStack.BOTTOM_TAB_STACK>;
 
 const Completed = () => {
   const insets = useSafeAreaInsets();
-  const navigation = useNavigation<NavigationProps['navigation']>();
+  const navigation = useNavigation<NavigationProps["navigation"]>();
   const dispatch = useAppDispatch();
 
   const { task } = useAppSelector(getTaskState);
-  const completedTasks = task?.filter(item => item.isChecked);
+  const completedTasks = task?.filter((item) => item.isChecked);
 
-  const [searchValue, setSearchValue] = useState<string>('');
+  const [searchValue, setSearchValue] = useState<string>("");
 
-  const filteredCompletedTasks = completedTasks.filter(i => {
+  // Reactive scroll integration
+  const { onScroll } = useMotionify();
+
+  const filteredCompletedTasks = completedTasks.filter((i) => {
     const taskName = convertToUnsignedString(i?.name?.toUpperCase());
     return taskName.includes(
-      convertToUnsignedString(searchValue.toUpperCase()),
+      convertToUnsignedString(searchValue.toUpperCase())
     );
   });
 
@@ -50,7 +54,7 @@ const Completed = () => {
 
   const keyExtractor = useCallback(
     (item: TaskResponseModel) => `completed-tab-${item.id}`,
-    [],
+    []
   );
 
   const renderItem = ({
@@ -86,7 +90,7 @@ const Completed = () => {
     <View style={[styles.container]}>
       <Header
         hideLeftIcon
-        title={translate('taskify.bottomTab.tab2')}
+        title={translate("taskify.bottomTab.tab2")}
         containerStyle={[{ paddingBottom: moderateVerticalScale(8) }]}
         onPressRight={onCreateTask}
       />
@@ -94,18 +98,19 @@ const Completed = () => {
       <View style={[styles.wrapperSearchInput]}>
         <TextInput
           style={[styles.searchInput]}
-          placeholder={translate('taskify.home.searchPlaceHolder')}
+          placeholder={translate("taskify.home.searchPlaceHolder")}
           onChangeText={onChangeSearch}
           value={searchValue}
         />
         {searchValue.length > 0 && (
           <TouchableOpacity
             onPress={() => {
-              setSearchValue('');
-            }}>
+              setSearchValue("");
+            }}
+          >
             <Icon
-              type={'Ionicons'}
-              name={'close-outline'}
+              type={"Ionicons"}
+              name={"close-outline"}
               size={moderateScale(16)}
             />
           </TouchableOpacity>
@@ -115,7 +120,7 @@ const Completed = () => {
       <Indicator visible={false}>
         <FlatList
           showsVerticalScrollIndicator={false}
-          keyboardShouldPersistTaps={'handled'}
+          keyboardShouldPersistTaps={"handled"}
           data={filteredCompletedTasks}
           renderItem={renderItem}
           ItemSeparatorComponent={() => (
@@ -124,13 +129,15 @@ const Completed = () => {
           ListEmptyComponent={() => (
             <View style={[AppStyles.columnCenter]}>
               <RegularText style={[{ fontSize: 14 }]}>
-                {translate('taskify.common.dataIsEmpty')}
+                {translate("taskify.common.dataIsEmpty")}
               </RegularText>
             </View>
           )}
           style={[{ marginTop: moderateScale(16) }]}
           contentContainerStyle={[{ paddingBottom: insets.bottom * 4 }]}
           keyExtractor={keyExtractor}
+          onScroll={onScroll}
+          scrollEventThrottle={16}
         />
       </Indicator>
     </View>

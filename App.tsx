@@ -3,6 +3,7 @@ import "react-native-gesture-handler";
 
 /* Import normal */
 import React from "react";
+import { MotionifyProvider } from "react-native-motionify";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -23,7 +24,9 @@ const App = () => {
       <Provider store={store}>
         <PersistGate loading={null} persistor={persistor}>
           <I18nextProvider i18n={i18n}>
-            <RootNavigator />
+            <MotionifyProvider>
+              <RootNavigator />
+            </MotionifyProvider>
           </I18nextProvider>
         </PersistGate>
       </Provider>

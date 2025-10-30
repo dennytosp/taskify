@@ -1,18 +1,17 @@
-import React from 'react';
-import { StyleSheet } from 'react-native';
-import { BlurView } from '@react-native-community/blur';
+import { BlurView } from "@react-native-community/blur";
 import {
   BottomTabScreenProps,
   createBottomTabNavigator,
-} from '@react-navigation/bottom-tabs';
+} from "@react-navigation/bottom-tabs";
+import { CompositeScreenProps } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import React from "react";
+import { StyleSheet } from "react-native";
 
-import { AnimatedBottomTabBar } from '@/components';
-import { Categories, Completed, Home, Profile } from '@/screens';
-import { translate } from '@/translations/translate';
-import { bottomTabHolder } from '@/utils/holder';
-import { CompositeScreenProps } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
-import { RoutesBottomTabStack } from '../routes';
+import { MotionifyBottomTabBar } from "@/components";
+import { Categories, Completed, Home, Profile } from "@/screens";
+import { translate } from "@/translations/translate";
+import { RoutesBottomTabStack } from "../routes";
 
 export type BottomTabStackParamsList = {
   [RoutesBottomTabStack.HOME]: undefined;
@@ -33,9 +32,7 @@ const BottomTabStack = () => {
   return (
     <Tab.Navigator
       initialRouteName={RoutesBottomTabStack.HOME}
-      tabBar={props => (
-        <AnimatedBottomTabBar ref={bottomTabHolder} {...props} />
-      )}
+      tabBar={(props) => <MotionifyBottomTabBar {...props} />}
       screenOptions={{
         headerShown: false,
         tabBarBackground: () => (
@@ -43,32 +40,33 @@ const BottomTabStack = () => {
             style={[
               {
                 ...StyleSheet.absoluteFillObject,
-                backgroundColor: 'transparent',
+                backgroundColor: "transparent",
               },
             ]}
             blurAmount={10}
           />
         ),
-      }}>
+      }}
+    >
       <Tab.Screen
         name={RoutesBottomTabStack.HOME}
         component={Home}
-        options={{ tabBarLabel: translate('taskify.bottomTab.tab1') }}
+        options={{ tabBarLabel: translate("taskify.bottomTab.tab1") }}
       />
       <Tab.Screen
         name={RoutesBottomTabStack.COMPLETED}
         component={Completed}
-        options={{ tabBarLabel: translate('taskify.bottomTab.tab2') }}
+        options={{ tabBarLabel: translate("taskify.bottomTab.tab2") }}
       />
       <Tab.Screen
         name={RoutesBottomTabStack.CATEGORIES}
         component={Categories}
-        options={{ tabBarLabel: translate('taskify.bottomTab.tab3') }}
+        options={{ tabBarLabel: translate("taskify.bottomTab.tab3") }}
       />
       <Tab.Screen
         name={RoutesBottomTabStack.PROFILE}
         component={Profile}
-        options={{ tabBarLabel: translate('taskify.bottomTab.tab4') }}
+        options={{ tabBarLabel: translate("taskify.bottomTab.tab4") }}
       />
     </Tab.Navigator>
   );

@@ -1,27 +1,27 @@
-import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
-import React, { forwardRef, Ref, useImperativeHandle, useMemo } from 'react';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { BottomTabBarProps } from "@react-navigation/bottom-tabs";
+import React, { forwardRef, Ref, useImperativeHandle, useMemo } from "react";
+import { Pressable, StyleSheet, View } from "react-native";
 import Animated, {
   Extrapolation,
   interpolate,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
-} from 'react-native-reanimated';
+} from "react-native-reanimated";
 
-import { Image } from '@/components';
-import { AppStyles } from '@/styles';
-import { COLORS, Icons } from '@/theme';
-import { translate } from '@/translations/translate';
-import { ShowHideRef } from '@/types';
-import { isIos } from '@/utils/device';
-import { showBottomTab } from '@/utils/holder';
+import { Image } from "@/components";
+import { AppStyles } from "@/styles";
+import { COLORS, Icons } from "@/theme";
+import { translate } from "@/translations/translate";
+import { ShowHideRef } from "@/types";
+import { isIos } from "@/utils/device";
+import { showBottomTab } from "@/utils/holder";
 import {
   MetricsSizes,
   moderateScale,
   moderateVerticalScale,
   width,
-} from '@/utils/scale';
+} from "@/utils/scale";
 
 const AnimatedBottomTabBar = forwardRef(
   (props: BottomTabBarProps, ref: Ref<ShowHideRef>) => {
@@ -59,7 +59,7 @@ const AnimatedBottomTabBar = forwardRef(
           opacityScroll.value = 0;
         },
       }),
-      [],
+      []
     );
 
     const animatedContainerStyle = useAnimatedStyle(() => {
@@ -68,7 +68,7 @@ const AnimatedBottomTabBar = forwardRef(
           {
             translateX: withTiming(
               tabBarItemWidth * state.index +
-                (isMaterial ? MetricsSizes.regular : MetricsSizes.big),
+                (isMaterial ? MetricsSizes.regular : MetricsSizes.big)
             ),
           },
         ],
@@ -87,29 +87,30 @@ const AnimatedBottomTabBar = forwardRef(
         <View
           style={[
             AppStyles.rowCenterBetween,
-            { justifyContent: 'space-evenly' },
-          ]}>
+            { justifyContent: "space-evenly" },
+          ]}
+        >
           {state.routes.map((route, index) => {
             const { options } = descriptors[route.key];
             const label =
               options.tabBarLabel !== undefined
                 ? options.tabBarLabel
                 : options.title !== undefined
-                ? options.title
-                : route.name;
+                  ? options.title
+                  : route.name;
 
             const isFocused = state.index === index;
             const isLastIndex = Number(state.routes.length - 1) === index;
 
             const iconName = useMemo(() => {
               switch (label) {
-                case translate('taskify.bottomTab.tab1'):
+                case translate("taskify.bottomTab.tab1"):
                   return Icons.home;
-                case translate('taskify.bottomTab.tab2'):
+                case translate("taskify.bottomTab.tab2"):
                   return Icons.wallet;
-                case translate('taskify.bottomTab.tab3'):
+                case translate("taskify.bottomTab.tab3"):
                   return Icons.categories;
-                case translate('taskify.bottomTab.tab4'):
+                case translate("taskify.bottomTab.tab4"):
                   return Icons.profile;
                 default:
                   return Icons.wallet;
@@ -118,7 +119,7 @@ const AnimatedBottomTabBar = forwardRef(
 
             const onPress = () => {
               const event = navigation.emit({
-                type: 'tabPress',
+                type: "tabPress",
                 target: route.key,
                 canPreventDefault: true,
               });
@@ -132,14 +133,14 @@ const AnimatedBottomTabBar = forwardRef(
 
             const onLongPress = () => {
               navigation.emit({
-                type: 'tabLongPress',
+                type: "tabLongPress",
                 target: route.key,
               });
             };
 
             return (
               <Pressable
-                key={'bottom-tab-' + route.key}
+                key={"bottom-tab-" + route.key}
                 accessibilityRole="button"
                 accessibilityState={isFocused ? { selected: true } : {}}
                 accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -150,13 +151,15 @@ const AnimatedBottomTabBar = forwardRef(
                   styles.button,
                   index === 0 && { marginLeft: MetricsSizes.regular },
                   isLastIndex && { marginRight: MetricsSizes.regular },
-                ]}>
+                ]}
+              >
                 <Animated.View
-                  style={[animatedDefaultButtonStyle, AppStyles.columnCenter]}>
+                  style={[animatedDefaultButtonStyle, AppStyles.columnCenter]}
+                >
                   <Image
                     source={iconName}
-                    imageType={'large'}
-                    tintColor={isFocused ? COLORS.white : '#8EDFEB'}
+                    imageType={"large"}
+                    tintColor={isFocused ? COLORS.white : "#8EDFEB"}
                   />
 
                   {/* <SemiBoldText
@@ -183,18 +186,20 @@ const AnimatedBottomTabBar = forwardRef(
             paddingVertical: isMaterial
               ? bottomSize
               : moderateVerticalScale(24),
-            width: isMaterial ? '100%' : width - moderateScale(48),
+            width: isMaterial ? "100%" : width - moderateScale(48),
             // transform: [{ translateY }],
           },
           animatedStyle,
-        ]}>
+        ]}
+      >
         {pinchGesture && (
           <Animated.View
             style={[
               styles.tabContainer,
-              { justifyContent: isMaterial ? 'center' : 'flex-end' },
+              { justifyContent: isMaterial ? "center" : "flex-end" },
               animatedContainerStyle,
-            ]}>
+            ]}
+          >
             <View
               style={[
                 isMaterial ? styles.tabItemMaterial : styles.tabItem,
@@ -210,13 +215,13 @@ const AnimatedBottomTabBar = forwardRef(
         <TabItem />
       </Animated.View>
     );
-  },
+  }
 );
 
 const styles = StyleSheet.create({
   container: {
-    position: 'absolute',
-    alignSelf: 'center',
+    position: "absolute",
+    alignSelf: "center",
     borderRadius: 20,
     backgroundColor: COLORS.white,
     shadowColor: COLORS.black,
@@ -229,7 +234,7 @@ const styles = StyleSheet.create({
   },
   containerMaterial: {
     backgroundColor: COLORS.white,
-    width: '100%',
+    width: "100%",
   },
   tabContainer: {
     ...StyleSheet.absoluteFillObject,
@@ -237,7 +242,7 @@ const styles = StyleSheet.create({
   tabItem: {
     borderTopLeftRadius: 44,
     borderTopRightRadius: 44,
-    height: '80%',
+    height: "80%",
   },
   tabItemMaterial: {
     borderRadius: 12,
